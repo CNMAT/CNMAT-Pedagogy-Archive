@@ -1,0 +1,9 @@
+give ursula a schematic for what needs to be soldered 
+
+without high-pass:
+- DAEX32Q-4 is much louder than DAEX32QMB-4 below 200hz
+
+
+Tested DAEX32QMB-4 with first order 150uF capacitor, against another DAEX32QMB-4 without the capacitor, results:
+- noticeable filtering of frequencies below ca. 300z (at 300hz the filter seems to not have a noticeable effect).
+

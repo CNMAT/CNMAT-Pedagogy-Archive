@@ -1,0 +1,8 @@
+
+abstractions that need to refer to one address should specify that address as an argument so that it is readily readable. this also requires less remembering of API specific names. 
+
+some situations, like sound engines, require many addresses and in these cases have a specific API
+
+
+
+

@@ -1,0 +1,25 @@
+
+
+1) 1st amp blew up, with flames were visible inside:
+
+started it up, left channel was playing fine, but no sound was coming from the right channel. they thought maybe the signal was just very low, so they turned up the gain on the amp. When they did this, they heard the sounds, but strangely they were coming from the amp itself. Immediately after that, they heard a pop, other students saw a blue spark, and yellow flames flashed inside the amp. Followed by smoke, and all sound stopped, and the front LED light went off.
+
+2) transducer blew
+
+1st transducer:
+volume was at approx. 70%, with volume maxed on mixer. Levels seemed normal, but then suddenly a pop and followed by the smell of burning electronics, then no sound. Not sure if it was low pitch or high pitch, the gain from the computer was never more than -6dB. Try tried different filters, no sound came out.
+
+After this Rama made sure they had a tanh~, and highpass filter in place in Max.
+
+2nd transducer, tab broke off of the transducer. often a loud impulse would cause connector to come off.  they soldered that back in.
+
+3rd and 4th transducers when playing with the percussionists, turned up the amps higher to try to match the volume of the percussion instruments. not sure when it happened, but the transducers burned out at some point.
+
+
+3) 2nd amp
+
+no event in particular that caused it, but the right channel was buzzing, but no audio was coming out. Tried multiple transducers, A & B outputs, and moved input between left and right and determined that the whole right channel was blown. I noticed some smell of burnt circuitry when we were looking at it.
+
+In testing this amp, we also noticed that the amp send out a loud click sound when turn on, and also when selecting A&B outputs. But on the know good amp, the click was less pronounced.
+
+We found that we could avoid the click, by having the volume down on the amp on start up, and both A & B disabled.

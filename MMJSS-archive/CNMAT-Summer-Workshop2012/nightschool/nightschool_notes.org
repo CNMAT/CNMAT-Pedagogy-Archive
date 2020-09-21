@@ -1,0 +1,27 @@
+* Intro to Max
+** Who is Max?
+*** Max Mathews (1926--2011)
+**** Named in honor of Max by Miller Puckette
+**** Honors Mathews' contributions to computer music
+**** Acknowledges Mathews' work on RTSKED
+** Who buil(t|ds) Max?
+*** Miller Puckette
+*** Commercialized by David Zicarelli/Opcode
+** What is Max?
+*** Max, PD, jMax (RIP) are all different incarnations of the basic concept of `Max'
+*** Graphical dataflow programming language
+*** Dataflow languages
+**** Focus on the flow of data through instructions.
+**** Route data through different parts of the program graph.
+*** Contrast this with Imperative languages which
+**** Focus on the stream of instructions that operate on external data
+**** Manipulate the instruction stream according to the state of the program
+*** If Max is a dataflow language, what kind of data is flowing?
+**** Messages!
+* Intro to Max
+** History
+** Dataflow language
+** Messages
+** Order of operations
+** Encapsulation
+** Abstraction

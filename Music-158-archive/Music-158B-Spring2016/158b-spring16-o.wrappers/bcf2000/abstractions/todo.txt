@@ -1,0 +1,9 @@
+todo:
+
+1. UI wrapper needs to be updated for setters (consult Rama)
+2. review for completeness
+3. sysex init 
+4. presets and/or init
+5. review
+6. style and/or best practices updates
+7. bang support?  - send status to controller upon bang into UI

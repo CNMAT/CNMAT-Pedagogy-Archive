@@ -1,0 +1,224 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red34\green45\blue53;\red255\green255\blue255;\red47\green106\blue144;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid201\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+\margl1440\margr1440\vieww14320\viewh16040\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\b\fs24 \cf0 \ul \ulc0 Lab 1: \
+
+\b0 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \strokec2 Use m158.o.io.mouse and o.expr.codebox to create changing lists stored in the\'a0/hz and /amp addresses\'a0to be played by\'a0m158.o.sinusoids~ -- \'a0see\'a0the Lesson 2 materials and help files for more information.\
+\
+
+\b \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Lab 2: \
+\ulnone Submission Information:
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0  Submit a max patch. If you are using your own audio files that do not come with Max, please include them with your submission 
+\i\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 (please submit a zip file if that is the case, bCourses makes it very difficult to grade otherwise)
+\i0\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 .\'a0You may submit a short one-paragraph text (we prefer just a comment in your Max patch, but a separate file is okay) telling us what you find interesting about the properties you chose to automate / change. We will give you 5 extra credit points if you do.\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 Assignment:
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+This week we looked at the basics of sound-shaping with functions and sound file playback with buffers (see the "textbook" 3_time_and_phase for various examples). Your mission this week is to create 15\'a0seconds worth of\'a0
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 music
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 , or\'a0
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 sound
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 . The requirement is: your sound must develop\'a0over time.\
+For this lab, you can use any of the Max sound-generators (cycle~, saw~, rect~, tri~, noise~) as well as our m158.o.io.sinusoids~ that you should already be familiar with from last week's lab and, of course, our m158.o.buffer~ for sound files. This time, however, your job is to\'a0
+\i \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 shape
+\i0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0  the sound over time, using phase~ ramps that should control points.phase~ or buffer.player~ objects.\
+The key of this lab is\'a0
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 design
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 . Make sure that your sounds has a shape that is interesting to you and is convincing to you. Remember, you can control amplitude, pitch, buffer position. Draw envelopes carefully, and more than anything else,\'a0
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 trust your ears
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 .\
+You may find the following set of questions / notes useful:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 what properties of sound would you like to change over time?\cb1 \
+\ls1\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 how can you make more than one sound interact?\cb1 \
+\ls1\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 sound design & music are a lot like cooking: choose the ingredients carefully, make sure they mix well:\cb1 \
+\ls1\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 when should different sounds seamlessly go with each other?\cb1 \
+\ls1\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 when should different sounds be in contrast with each other?\cb1 \
+\pard\pardeftab720\sa240
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 And above all else, 
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 make something you genuinely like
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 .\
+We can't wait to hear what you come up with!\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Lab 3: \
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 For Lab 3 your assignment is to\'a0make a patch using sequences (and functions if you like) that evolves over a period of time. Refer to the Lesson 4 examples for how you might do this using layers of sequences and counters of different lengths.\
+And most importantly: make it sound good to you and HAVE FUN DOING IT : )\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Lab 4:
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+\pard\pardeftab720\sa240
+\cf2 \ulnone This week we looked at timbre and scales. You mission this week is to incorporate pitch into your work.\
+We recommend using sequencers with various scales, as outlined in the "book" patches and work we did in class. Sequencers enable you to specify the rhythmic\'a0unfolding of sound in time. These sequencers should interact with a scale containing pitches. Those pitches must result in complex waveforms containing multiple partials.\
+Since we also want you to make the best sounding work possible, you are invited to combine your\'a0work with scales & timbre with rhythmic motions of drum machines or any other sounds that you would want to use. One thing we stress is that our work with phase~ should help you with synchronizing various mechanisms & play them together without ever losing synchronization.\
+Cheat sheet:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 create a cool sound with `m158.o.harmonics.shape~`, then create another one.\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 follow the example from class and from the book to make an `itable` or a `live.grid` play different pitches\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 combine the two for simultaneous play\cb1 \
+\pard\pardeftab720\sa240
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 Note:\'a0
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 everything
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0  we covered in the last two weeks applies equally to both sample playback and scales. That is, your multiple sequencers can be hooked up to generate a polyrhythm (differently sized sequences that always start together) or isorhythm (each step of differently sized sequencers is synchronized).\'a0\
+Best of luck, and let us know if you have questions.\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Lab 5 (problem set):\
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 Hello. Attached is the pdf file containing your problem set. The big topic this week was m158.points.buffer~ object that we need to make sure you all understand and can use in your own work.\
+\pard\pardeftab720\sa240
+{\field{\*\fldinst{HYPERLINK "https://bcourses.berkeley.edu/courses/1454910/files/69749556/download?wrap=1"}}{\fldrslt \cf4 \expnd0\expndtw0\kerning0
+\ul \ulc4 \outl0\strokewidth0 \strokec4 M158ProblemSet.pdf\cb1 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 }}\'a0-- here it is! :)\
+The problem set\'a0is due THURSDAY MORNING, because I want everyone to get it right. However, it is important to note that there are eight problems in the problem set, and they can be time consuming, particularly if you're not a seasoned points.buffer~ hacker. Please be mindful of your time. I do not want to be responsible for forcing all-nighters, but I also\'a0
+\i \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 really need everyone to be on board with the points.buffer~
+\i0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 , because it's one of the most important tools in our arsenal for all the work going forward.\
+Thank you for your questions & engagement this week, onward to more fun!\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Midterm Project Proposal:\
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 To aid you with your midterm projects, you need to bring the following to class on Tuesday:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls3\ilvl0\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 One paragraph write-up as to what your midterm project is about. This should be a high-level overview (a piece of music, an experimental sound design tool, a data sonification engine, etc.).\cb1 \
+\ls3\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 A short list\'a0of things you would need from us (data sonification projects will probably need to ask how we can interact with other things, and it's best if we took care of that as early as possible).\cb1 \
+\ls3\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 If working in teams, please have the whole team show up so we can understand how you will be distributing tasks.\cb1 \
+\pard\pardeftab720\sa240
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 On Tuesday, both instructors will hold meetings with everyone in the class. Due to large class sizes, time is of the essence, so it is extremely necessary that the write-ups are short and to the point. (Many of you have daring ideas already, and for those of you who are trying to build synthesizers, make sure to prioritize problems rather than things you know how to build already!)\'a0\
+Please submit the write-up here for 10 points that will count towards your\'a0midterm grade. For group projects, please have each member of the group submit a copy of the write-up so as to ease the grading process.\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Lab 6:\
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 Create a dynamic ASCII keyboard synthesizer using dynamic FM synthesis. Each key should have it's own mapping.\
+Please do not just copy the example and submit it! : )\'a0The example is to get you started, your lab should be much more developed!\
+To make it more developed you could:\cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - use scales for the notes, \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - change the harmonicity, \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - change the modulation index range, \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - change the envelopes, \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - add delay, \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 - add filters\
+... and on and on!\
+Remember: using the row and column numbers for your mapping will allow you to make mappings for\'a0each key without having to make separate if() statements for every key.\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Lab 7:\
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 Create a 
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 polyphonic
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0  ASCII keyboard controlled synthesizer using dynamic FM synthesis 
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 and at least one processing technique
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0  (delay, filter, ...etc.). Each key should sound different. Optionally, use a mouse for additional control.\
+Please do not just copy the examples and submit it! : )\'a0The examples are\'a0to get you started, your lab should be much more developed!\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 Final Project:\
+\pard\pardeftab720\sa240
+
+\b0 \cf2 \expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 This is the final project! \'a0Please work hard on it and send us an example of your best work!\
+Your project submission should consist of:\
+\pard\pardeftab720\sa240
+
+\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 1) Your patch, fully functional and cleaned up, ready for us to look at -- please include\'a0all dependencies not included in the packages used in class.
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 2) A video (or link to video) documenting your project. In the video, please demonstrate how it works, explain the\'a0ideas you worked with in creating it, and discuss the process of putting it all together.
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+
+\b \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 3) For group projects: Each member\'a0needs to submit a short written text explaining what your personal contribution to the project was, and discuss your experience in the collaboration process.
+\b0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+Note: while recording your video you\'a0may want to send audio from Max to your screen capture program.\
+For\'a0Mac, there is\'a0Soundflower ({\field{\*\fldinst{HYPERLINK "https://rogueamoeba.com/freebies/soundflower/"}}{\fldrslt \cf4 \expnd0\expndtw0\kerning0
+\ul \ulc4 \outl0\strokewidth0 \strokec4 https://rogueamoeba.com/freebies/soundflower/)}}\cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \uc0\u8232 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 For\'a0Windows, there is\'a0Open Broadcaster Software ({\field{\*\fldinst{HYPERLINK "https://obsproject.com/"}}{\fldrslt \cf4 \expnd0\expndtw0\kerning0
+\ul \ulc4 \outl0\strokewidth0 \strokec4 https://obsproject.com)}}\
+Good luck, and it was a pleasure having you all in class!\
+\'a0\
+\
+}

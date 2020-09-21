@@ -1,0 +1,40 @@
+**************************************************
+Lab assignment part 1:  Visualization
+**************************************************
+
+1.  Start by turning on the gametrack input at the top of the patch.  Notice that nothing happens ;)  This is often the case in Max--we have some operation that is happening, but we can't see what it is or what it is doing.
+
+We can assume that the object called [o.io.Gametrak] is sending out data that is being processed by the four [OSC-route] objects below it.  The first thing we should do is verify that [o.io.Gametrak] is indeed sending out data, and see what kind of data it is.  
+
+2.  Hook up a [print] object to the outlet of [o.io.Gametrak] and look at the messages printed in the Max window.  (If the Max window is not visible on your monitor, bring it forward by choosing ``Max Window'' under the ``Windows'' menu.)
+
+Take a close look at the messages in the Max window (turn off the Gametrak input if the messages are being printed to the Max window too fast).  Notice that the messages coming from [o.io.Gametrak] are in the form /Gametrak/left/x <number>, or /Gametrak/right/z <number>.  What do you think the [OSC-route] objects are doing in the patch?
+
+3.  Hook up a number box to the three left outlets of the two bottom [OSC-route] objects.  You have a choice between two number boxes:  one that displays floating point (decimal) numbers, and one that displays integers.  Which one is appropriate here and what happens if you use the wrong one?
+
+As you move the two joysticks, you should see the numbers change rapidly.  While useful for verifying that data is actually flowing through the patch, the numbers are changing so fast that it can be difficult to track them.
+
+4.  Try visualizing the numbers in the number boxes using the [multislider] object.  (HINT:  [multislider] has a couple of different modes that are useful for displaying data--check out the help file.)
+
+You may want to visualize all three parameters from each joystick (/x /y and /z) in a single [multislider] object.  Use the [pack] object to build a list of the three parameters and send it into a [multislider].  (Don't forget to check out the help file for the [pack] object...)
+
+**************************************************
+Lab assignment part 2:  Sonification
+**************************************************
+
+1.  Start by turning on the audio at the bottom of the patch (click on the speaker icon [ezdac~]).  __SLOWLY__ turn up the volume by dragging the slider [gain~] above the speaker.  You should hear a sine wave tuned to 440. Hz, or A above middle C.
+
+We want to control the frequency (pitch) and amplitude (volume) of that sine wave using the joysticks of the Gametrak.  
+
+We first need to scale the data coming from the Gametrak, which has a range of -1--1, to some reasonable range of audible frequencies.  Although the range of audible frequencies that a human can hear is roughly 20-20000 Hz, a more reasonable range to work with for today might be 200-2000 Hz.  
+
+2.  Try scaling the /x parameter from the left joystick from -1--1 to 200--2000 using the [scale] object (remember to use floating point arguments).
+
+Verify that the scaling is working properly by using the number boxes and [multislider].
+
+3.  Once you have verified that the scaling is working properly, send the scaled values into the left inlet of the [sinewave~] object.
+
+4.  Now let's control the volume with the Gametrak.  The volume slider at the bottom of the patch accepts a value in the left inlet to set the volume.  That value should be between 0--157 (see the help file for [gain~]).  Scale the /y parameter of the Gametrak's right joystick from -1--1 to 0--127 (we don't want to use the maximum volume here as it may be too loud).
+
+It is good practice to have a master volume control in your patch that can be lowered independently of the volume of any process or synthesizer.  It would make sense put a [gain~] object between the [sinewave~] object and the [gain~] object that the Gametrak is currently controlling.  
+

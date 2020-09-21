@@ -1,0 +1,131 @@
+
+
+ask jeremy about supporting CNMAT externals
+
+control & signal
+
+frequency, time, and event organization
+
+msp:
+	know what processes are and know how to control them
+	basic signal primer
+
+
+opening month
+
+	2 weeks basic control
+		events and time
+	2 weeks basic signal
+		frequency and spectrum
+
+	logistics of working with the program workspace
+
+themes:
+
+* spatial?
+	for the course: headphone space
+
+* onset
+	how are we handling attack?
+	attack as temporal event
+
+
+
+simple synthsis modules
+	cycle~ wrapped
+		including amplitude envelope
+
+continuous frequency vs. discrete frequency
+note events
+
+design names to never be mistaken
+have a spec 
+
+harmonics~
+sinusoids~
+	larger models
+
+oscillators~
+
+decaying-siunusoids~
+resonators~
+
+
+ways to create states and ways to interpolate between states
+interpolate simple - complex
+computational approaches for musical concerns
+
+
+start with impulse decay space
+then move to interpolated frame sequence
+
+glissandi from event
+
+monophonic
+	bird synthesizer
+		roughness
+		spatial
+		individual processes on each 
+	singing voice example
+		for adrian to contribute
+
+
+pitch space
+	probablistic models
+	"don't do here what you can do on your piano"
+
+	harmonic shifting space to spectrum space
+
+proliferation vs polyphony
+	frequency space
+	interpolation
+	distribution
+
+continous sound instrument
+	flute with theremin
+	singing voice example (endless voice) 
+
+teaching about patterns of computation and musical application
+
+aspects for adrian to contribute
+
+research groups in class
+
+
+
+--
+
+noise space / probability
+filtered bands
+frequency regions
+frequency
+pitch space
+
+note event
+
+impulse and resonance
+	impulse =/~ noise
+	showing relationship and noise
+
+	noise is perceived as all 
+	pink~, brown~, white~
+
+spectroscope
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>o.lab2</title>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$$$','$$$']]}});</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<h2>o.lab2</h2>
+
+<ul>
+<li>We want to enable you to design &amp; implement complex systems;</li>
+<li>Complex systems are, for the lack of a better word, <em>complex</em> - so we need to figure out a way of thinking about things we're making to ensure that:
+
+<ul>
+<li>we understand the <em>steps</em> needed to carry out a task</li>
+<li>our patches are <em>readable</em> and <em>easy to edit</em></li>
+<li>our work is <em>modular</em> and <em>scalable</em> (that is, it consists of pieces we understand well and can reuse in other patches, and that things can grow organically)</li>
+</ul>
+</li>
+<li>For example, if we look at the requirements of Lab 2, what would be the best way of approaching it?</li>
+</ul>
+
+
+<h3>What we have:</h3>
+
+<ul>
+<li>buffer~ holds an audio file;</li>
+<li>play~ can play that audio file (either by using the "start <start time> <end time> <playback duration>" message or by a line~ that goes from <start time> to <end time> over the course of <playback duration> milliseconds):</li>
+</ul>
+
+
+<p><img src="odot/00_controlling_play~.png" alt="Controlling play" /></p>
+
+<ul>
+<li>waveform~ object provides us with a graphic interface to make selections, and outputs the <start time> and <end time> from its outlets:</li>
+</ul>
+
+
+<p><img src="odot/01_waveform~.png" alt="Waveform~" /></p>
+
+<ul>
+<li>an <strong>o.message</strong> object consists of
+
+<ul>
+<li>human-readable addresses (descriptive names) for data</li>
+<li>actual numbers that we can use to drive Max objects</li>
+</ul>
+</li>
+</ul>
+
+
+<p>We'll work backwards. We need to give data for play~ to play back sound. What data do we need?</p>
+
+<ol>
+<li>the buffer~ name (a symbol)</li>
+<li>the start time (in milliseconds - a floating-point number)</li>
+<li>the end time (in milliseconds - a floating-point number)</li>
+<li>the duration (in milliseconds - a floating point number)</li>
+</ol>
+
+
+<p>Let's write these in a <strong>o.message</strong>:</p>
+
+<pre><code>/buffer myBuffer
+/start 0.
+/end 1000.
+/duration 1000.
+</code></pre>
+
+<p>To get some practical use out of this message, we need to learn how to create <strong>o.messages</strong> and how to access or <em>route</em> the data from the messages into our system.</p>
+
+<h3>Accessing the data from <strong>o.message</strong></h3>
+
+<p>If we have a message with all of these things, we may access the data by using its addresses. Routing data out of different outlets is the job of the <strong>o.route</strong> object. To make it work, we need to specify the addresses within the <strong>o.route</strong> object:</p>
+
+<p><img src="odot/05_oroute_intro.png" alt="o.route intro" /></p>
+
+<p>To use these values in our play~ object, we would need to deal with this data appropriately:</p>
+
+<p><img src="odot/05_oroute_play.png" alt="o.route play~" /></p>
+
+<p>We may improve this later, but for now let's focus on creating meaningful messages that would contain these elements (<code>/buffer</code>, <code>/start</code>, <code>/stop</code>, and <code>/duration</code>) for play~ to use.</p>
+
+<h3>What are we missing?</h3>
+
+<p>Although our waveform~ object provides us with the selection start &amp; selection end, those aren't <em>necessarily</em> going to be the values for our <code>/start</code> and <code>/end</code> - if we wish to play through the selection backwards, <code>/start</code> needs to contain the selected end value, and <code>/end</code> needs to contain the selected start value. Furthermore, we might want to change duration value.</p>
+
+<p>This would imply that we would need to store the values of our selection in different variables. We'll use <code>/selectionStart</code> and <code>/selectionEnd</code>. There are several ways of doing this, and we will start with the most obvious:</p>
+
+<p>Let's create a different <strong>o.message</strong> that will take the values from waveform~ object:</p>
+
+<pre><code>/selectionStart $1
+/selectionEnd $1
+</code></pre>
+
+<p>If this message receives a list of values from our waveform~ object, we have exactly what we need:</p>
+
+<p><img src="odot/02_waveform_odot_1.png" alt="waveform~ odot" /></p>
+
+<p>While the example above is visually clear, it's far from everything we need. After all, we also need to make sure that we are storing:</p>
+
+<ul>
+<li>the buffer name that we're operating on;</li>
+<li>the rate of playback - the number that we would multiply our direction by.</li>
+</ul>
+
+
+<p>Let's start by simplifying the way we store things above first. Before the <strong>o.message</strong> receives the start and stop values, they are packed into a list using the pack object. We can use the <strong>o.pack</strong> to do the same thing for us:</p>
+
+<p><img src="odot/02_waveform_odot_2.png" alt="waveform~ odot" /></p>
+
+<p>As you can see, the $-substitution is no longer necessary, as the <strong>o.pack</strong> requires us to specify the <em>addresses</em> or <em>variables</em> that we will storing our numbers in. From above, we also need rate and the buffer name, so let's add them to our <strong>o.pack</strong>:</p>
+
+<p><img src="odot/02_waveform_odot_3.png" alt="waveform~ odot" /></p>
+
+<p>Before we improve this, let's break down what is happening:</p>
+
+<ul>
+<li>the "myBuffer" message is sent to <strong>o.pack</strong> - specifically to the inlet that sets the variable of <code>/buffer</code></li>
+<li>the floating-point box is sent to <strong>o.pack</strong> - to the inlet that sets the variable of <code>/rate</code></li>
+<li>the start &amp; end values of the selection from waveform~ are sent to <strong>o.pack</strong> as above.</li>
+</ul>
+
+
+<p>However, these values only update after we make our selection (since <strong>o.pack</strong> only has one hot inlet). To make sure that all of our changes are updated immediately, we will use <strong>o.pak</strong> - which works just like <strong>o.pack</strong>, but with all inlets hot.</p>
+
+<p>The second issue is that in the above patch, we need to manually type in the name of the buffer~ at least twice: once to set the waveform~ display, and yet again to set our message. To fix this, we'll use the $-substitution to set the waveform~ and a trigger to make sure that the name of our buffer also goes to the correct inlet of our <strong>o.pak</strong>:</p>
+
+<p><img src="odot/02_waveform_odot_4.png" alt="waveform~ odot" /></p>
+
+<p>Provided you understand all of the steps above, let's continue onward to see why storing things in an <strong>o.message</strong> enables some magic.</p>
+
+<hr />
+
+<p><br />
+<br /></p>
+
+<h3>Computing things we need:</h3>
+
+<p>To operate on the numbers stored in odot messages, we will use the <strong>o.expr</strong> object. Here's what you need to know:</p>
+
+<ol>
+<li><strong>o.expr</strong> can store and evaluate <em>expressions</em></li>
+<li>an <em>expression</em> can access values defined in the <strong>o.message</strong> that is passed to <strong>o.expr</strong>'s inlet</li>
+<li><strong>o.expr</strong> can define its own variables (or addresses) inside of the expression, and their values will be appended to the full message.</li>
+</ol>
+
+
+<h4>Simple Example:</h4>
+
+<p>Old McDonald had a farm, and he has some animals there. The following <strong>o.message</strong> keeps track of the animals he has:</p>
+
+<pre><code>/chickens 8
+/cows 4
+/pigs 7
+/ostriches 12
+/rabbits 9
+</code></pre>
+
+<p>(It's a small farm, times are kinda tough these days.) Let's see how we can use <strong>o.expr</strong> to compute the number of birds and the number of mammals on the farm. There are two types of birds on his farm - chickens and ostriches, so we need to add the two and to call that sum something that odot can understand, like … <code>/numberOfBirds</code> or something (feel free to use whatever you want):</p>
+
+<p><img src="odot/03_farm_1.png" alt="o.farm" /></p>
+
+<p>Now, we also would want to compute the number of mammals on the farm as well, and while the operation is the same as the one for birds, it is important to note that we can string multiple <strong>o.expr</strong> objects together and they will pass messages without a problem:</p>
+
+<p><img src="odot/03_farm_2.png" alt="o.farm" /></p>
+
+<p>The reason why this stringing things together works is because <strong>o.expr</strong> passes the full message through it. In both of the cases above, we created new variables (<code>/numberOfBirds</code> and <code>/numberOfMammals</code>) but we may also operate directly on the contents of the existing variables. For example, since rabbits are well-known for their reproductive prowess, perhaps their number will have increased by the time we were done counting up the birds. Let's increment the number of rabbits in an <strong>o.expr</strong>:</p>
+
+<p><img src="odot/03_farm_3.png" alt="o.farm" /></p>
+
+<p>Feel free to improve this - maybe rabbits multiply by some factor of their population? Maybe some of those rabbits die or get eaten by Old MCDonald? If you understand the expressions, let's return to dealing with digital audio and use <strong>o.expr</strong> to compute things we need.</p>
+
+<h4>TASK 1: Compute the duration of our selection:</h4>
+
+<p>From the lab, we know that we need to subtract <code>/selectionStart</code> from <code>/selectionEnd</code> - but we also need to find a descriptive name to store this. Since our final duration will still be scaled, let's call this direction <code>/selectionDuration</code> for clarity:</p>
+
+<pre><code>/selectionDuration = /selectionEnd - /selectionStart
+</code></pre>
+
+<p>Write this expression in an <strong>o.expr</strong> object and we are done with Task 1.</p>
+
+<h4>TASK 2: Compute the actual playback duration that will be seen by our play~ object:</h4>
+
+<p>We have already created a variable named <code>/rate</code> to scale the duration of our playback. The <strong>o.expr</strong> needed for this is easy-peasy:</p>
+
+<pre><code>/duration = /selectionDuration * /rate
+</code></pre>
+
+<p>But wait a second - this <code>/rate</code> variable makes it very difficult for us to deal with time, and it would be <em>much</em> nicer if we didn't have to remember that <code>0.5</code> means "half the time" and "twice as fast." Let's say that we would want the rate of <code>2.0</code> to mean "twice as fast" because that's much easier for us to remember. This would mean that instead of multiplying by <code>/rate</code> we need to multiply by <code>1 / rate</code> (or <code>1. / /rate</code> in the odot-speak):</p>
+
+<pre><code>/duration = /selectionDuration * ( 1. / /rate )
+</code></pre>
+
+<p>This is better, but not quite - we also would like to deal with the direction of our sample playback. In class we agreed that making <code>/rate</code> negative is a rather good way to communicate that we want the sample to play backwards. However, if <code>/rate</code> gets to be negative, we can not use it in our <code>/duration</code> computation (since the product is guaranteed to be negative and negative durations seem to make little sense). We need to use the <em>absolute value</em> of <code>/rate</code> - which we should all remember from our middle and high school math days. Luckily for us, <strong>o.expr</strong> provides a remarkable number of helper functions, and the one we will need is <code>abs()</code> - to get the absolute value.</p>
+
+<pre><code>/duration = /selectionDuration * ( 1. / abs( /rate ) )
+</code></pre>
+
+<p>The <code>abs()</code> function will return the absolute value of whatever goes inside the parentheses - and we need it to return the absolute value of our <code>/rate</code> variable. We will cover more functions as the semester goes on, but those eager to get a head start should consult the <strong>o.expr</strong> documentation.</p>
+
+<h4>TASK 3: Starting and Stopping the right endpoints:</h4>
+
+<p>Some tasks ask more than one question and require multiple steps. This is okay, since our o.farm example above showed us that multiple expressions are no big deal. Let's talk through what we need.</p>
+
+<p>We have our <code>/selectionStart</code> and <code>/selectionEnd</code> variables. We know that they will coincide with our <code>/start</code> and <code>/end</code> variables if we're playing the sample forward. If we're playing it backward, we need to flip them (that is, <code>/end</code> is now <code>/selectionStart</code> and <code>/start</code> is now <code>/selectionEnd</code>). The logic is simple:</p>
+
+<ul>
+<li>if <code>/direction is 'forward'</code>
+
+<ul>
+<li><code>/start = /selectionStart</code></li>
+<li><code>/end = /selectionEnd</code></li>
+</ul>
+</li>
+<li>else (otherwise)
+
+<ul>
+<li><code>/start = /selectionEnd</code></li>
+<li><code>/end = /selectionStart</code></li>
+</ul>
+</li>
+</ul>
+
+
+<p>First problem: we don't have the value for <code>/direction</code> yet. To determine <code>/direction</code> our logic is similar:</p>
+
+<ul>
+<li>if <code>/rate is positive</code>
+
+<ul>
+<li><code>/direction is forward</code></li>
+</ul>
+</li>
+<li>else (otherwise)
+
+<ul>
+<li><code>/direction is backward</code></li>
+</ul>
+</li>
+</ul>
+
+
+<p>How would we do this in <strong>o.expr</strong>? The syntax for <strong>o.expr</strong> that allows you to do the above logic is:</p>
+
+<pre><code>/direction = ( /rate &gt; 0 ) ? forward : backward
+</code></pre>
+
+<p>The use of the <code>?</code> and the <code>:</code> symbols is not accidental. Let's compare the logic of the example to the syntax of the <strong>o.expr</strong> to make sure we have no misunderstandings.</p>
+
+<ol>
+<li>we are assigning a value to <code>/direction</code> - we start with <code>/direction =</code></li>
+<li>we need to check if <code>rate is positive</code> written in <strong>o.expr</strong> as <code>( /rate &gt; 0 )</code></li>
+<li>we include a question mark to communicate both to <strong>o.expr</strong> and to ourselves that the values that follow depend on this condition</li>
+<li>we write down the value that we wish to assign if the check is true (that is, if <code>/rate &gt; 0</code>): <code>forward</code></li>
+<li>we put a colon to separate that value from the other value that will be assigned if the check is false (that is, if <code>rate</code> is NOT <code>&gt; 0</code>)</li>
+<li>we write down the value that we wish to assign if the check is false: <code>backward</code></li>
+</ol>
+
+
+<p>When is this useful? When we want to assign different values based on the contents of other values. For example:</p>
+
+<p><img src="odot/04_freezing.png" alt="o.freezing" /></p>
+
+<p>And also:</p>
+
+<p><img src="odot/04_cleverRate.png" alt="o.cleverRate" /></p>
+
+<p>And finally, we use the very same trick to set our <code>/start</code> and <code>/end</code> variables - and I won't bother explaining them - make sure to type this up and experiment with different values and things to understand what's going on!</p>
+
+<pre><code>/start = ( /direction == forward ) ? /selectionStart : /selectionEnd
+/end = ( /direction == forward ) ? /selectionEnd : /selectionStart
+</code></pre>
+
+<p>The only thing that may appear strange is the use of <code>==</code> symbol. Computers associate the <code>=</code> symbol with "assignment" - so that when <strong>o.expr</strong> sees <code>/start = 0.5</code> it will assign <code>0.5</code> to the variable <code>/start</code>. When we need to compare whether or not things are equal (which is what we're asking in our parentheses followed by a question mark above) we need a different symbol than the assignment. That symbol is <code>==</code> and <code>/start == 0.5</code> does not store <code>0.5</code> in <code>/start</code>. Instead, it checks to see if the contents of <code>/start</code> are actually 0.5 or not, and returns <code>true</code> if they are and <code>false</code> if they aren't. This should be enough to make you understand the <strong>o.expr</strong> expressions above.</p>
+
+<h3>MORE TO COME:</h3>
+
+<ul>
+<li>adding default values to everything</li>
+<li>storing &amp; using lists in o.messages</li>
+<li>cordless patching</li>
+<li>abstractions</li>
+</ul>
+
+</body>
+</html>

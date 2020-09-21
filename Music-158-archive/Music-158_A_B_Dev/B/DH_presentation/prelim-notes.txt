@@ -1,0 +1,36 @@
+
+april 1: active dynamic data
+	instrument design
+	OSC and odot expression language
+		** extendable
+			flexibility
+				composability
+					knowing the state of the system at all times
+						if you don't know the state it's difficult to compose with it
+				re-composability
+		huge interest for research at CNMAT
+		pedagogy + research, and it has large breadth
+		what is being enabled?
+			telematics
+			local live processing
+			interaction
+			dance, extended media
+	*** time critical ***
+	show esplora data and odot
+		and/or video input
+
+	coordination of data over network communication
+	state management
+		in order to know the state of the ouput, you need to keep track of everything
+
+	screenshot of cluster x
+	ed demo
+	scott and ursula start by talking about being in m158b
+	demo
+
+
+
+
+
+software makes instruments reconfigurable
+the configuration has real implications for the use of the system 

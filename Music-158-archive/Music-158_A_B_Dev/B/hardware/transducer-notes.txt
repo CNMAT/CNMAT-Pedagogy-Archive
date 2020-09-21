@@ -1,0 +1,38 @@
+
+
+We want to have a clear system for instructing students on how to setup transducers and amps.
+
+The first problem is that the perceived loudness of the transducer is largely reliant on the type of material it is attached to, in addition to the electrical power being sent to it. The issue is that it is very tempting to simply turn up the gain on the amplifier if the sound is not strong enough.
+
+To deal with this, we need to consider the specifications of the components of the system. There are many varieties of transducers with different impedances and power handling, and it is very likely that you will end up having a amplifier that is capable of blowing the transducers by sending too much power over an extended period of time. Speaker companies work hard to match their transducers with amplifiers that will power the transducers to the full amount without overheating. So, in cases where the speaker and amp are not matched and tested, we have to figure out where the limit is for our transducer setup.
+
+Fuses and filters can be used to limit the damage, but with a strong amplifier it’s always possible to blow your transducer.
+
+With the assumption that the maximum power rating for an amplifier is with the volume knob all the way up, we can make rough guesses about how much wattage is coming out by the setting of the volume knob. Most audio loudness controls are logarithmic so in order to really know how much power is going to the transducer we should measure it with a multimeter and test tone.
+
+To roughly test the power output of the amplifier, we need to first calculate the maximum voltage rating for our transducer. If we have a 4 Ohm transducer like the Tectonic Elements TEAX32C30, with a power rating of 32W, can can calculate that the maximum voltage it supposed to handle would be:
+
+We know that: Volts = sqrt(Watts * Ohms)
+so, we can calculate that our transducer can handle: sqrt( 35W * 4ohm ) = 11.83V
+
+The output of the APA100 amp is 75W per channel @4 ohms, or sqrt( 75W * 4ohm ) = 17.32V, which is too much for our transducer.
+
+Using a multimeter in AC mode, we can measure the output of the amplifier using the volume knob to find a suitable voltage output. To test correctly, the amplifier needs a resistance, a.k.a. “load”, attached to the output. You can use a 4ohm resistor, or an actual speaker or transducer. We can use the transducer itself for the test if we are careful not to blow it up.
+
+To test:
+
+1) with the amp power off and output volume set to zero, connect the speaker or transducer to the amp
+
+2) attach the multimeter in parallel to the speaker (i.e. both the speaker wires and the multimeter should be making full contact with the output from the amp; positive to positive, negative to negative).
+
+3) set the multimeter to AC mode
+
+4) send a constant low (60 or 100 Hz) sine tone to the amp at 0dB WARNING: being careful to send it only to the channel we’re testing, and remember: this sine wave will come out of the transducer. 
+
+ALSO NOTE: be mindful of the frequency response of the transducer, online resources say 60 or 50 Hz, but most transducers can’t handle those low frequencies. Most likely higher frequencies are OK, but may not sync with digital multimeters.
+
+5) slowly raise the volume of the amplifier and watch the voltage measurement, stop when you are somewhere *below* the maximum value your transducer can handle (for the TEAX32C30, maybe say 10V max?)
+
+6) note the position of the knob, *do not turn the knob higher than this*
+
+The idea is that by calibrating your amplifier level to your transducer you can then explore resonance materials knowing that you are already getting the most you can out of our transducer, and focusing the sonic exploration towards the physical material that the transducer is attached to rather than the power that is sent through it.

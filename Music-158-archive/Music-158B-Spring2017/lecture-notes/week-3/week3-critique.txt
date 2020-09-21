@@ -1,0 +1,84 @@
+
+
+Feedback loops:
+	with contact mics and transducers
+
+what is feedback?
+
+
+best?
+	attach contact mic and transducer to resonant surfaces
+
+rattle depending on stability of surface/object
+
+diversity of sound based on surface
+
+resonant frequency dependent on where you place the transducer on the material
+
+high frequencies more responsive and feeding back faster
+
+surprised that transducer doesn’t respond well on every surface
+
+trouble controlling feedback because it was unmounted
+
+resonators
+	bass response is limited
+
+other material ideas
+
+outside sounds, air mics
+
+location location location!
+
+	window edge vs center
+	piano
+		has to be on the sound board
+
+bass response is GOOD
+	could be used for sub-audible
+
+
+transducer + mic lends itself to live setting
+	could be useful for installation
+**	lack of repeatability using the microphone + resonators **
+
+	responsive in realtime
+	less polished?
+	artistically dangerous?
+	flirting with failure?
+
+Repeatability?
+
+french horn cracked notes, an old instrument, still has stability issues
+
+quality questions
+	use filters
+
+cardboard filtered sounds amazing but if not… sounds less good
+	you can do a lot with just filtering
+	** ANYTHING CAN SOUND INTERESTING **
+		(if you spend the time to make it sound good)	
+
+bottle resonances were difficult to find
+
+microphones 
+
+glass resonance?
+	because it has a wooden top
+
+transducer on ukulele 
+	
+feedback on cardboard
+	you could feel the feedback
+	felt like a job wheel
+	you really knew when you were going to activate the cardboard
+	EQ had a large effect on the frequency reaction
+
+
+
+
+		
+
+
+
+

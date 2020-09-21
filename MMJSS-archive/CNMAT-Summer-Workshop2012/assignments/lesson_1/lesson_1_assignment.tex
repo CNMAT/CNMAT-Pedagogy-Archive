@@ -1,0 +1,146 @@
+\input{../common}
+\graphicspath{{\imagedir}}
+
+% \title{CNMAT Max/MSP Summer Class 2011\\Lab Assignment 1}
+\ctitle{1}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Summary}
+In this lesson, we will use data from the \gt{} to control the pitch and volume
+of a virtual \href{http://en.wikipedia.org/wiki/Theremin}{Theremin}.  We will begin
+by visualizing the data coming from the \gt{} to figure out what it is and 
+what we will need to do to it to make it suitable to control our instrument.
+
+\subsection*{Topics}
+Data visualization (printing, number boxes, multislider), scaling.
+
+\subsection*{Objects Introduced}
+% objects:  button, toggle, flonum, number, message, comment, o.message, gate, +, -, *, /, *~, scale, gain~, multislider
+\mdoc{button}{}, \mdoc{toggle}{}, \mdoc{flonum}{}, \mdoc{number}{}, \mdoc{message}{}, \mdoc{comment}{},
+\mdoc{print}{}, \mdoc{o.message}{}, \mdoc{gate}{}, \mdoc{plus}{} (+), \mdoc{minus}{} (-), \mspdoc{times}{} \mdoc{times}{} (*), \mdoc{div}{} (/),
+\mdoc{scale}{}, \mspdoc{gain}{}, \mdoc{multislider}{}
+
+\subsection*{Relevant Tutorials}
+\subsubsection*{Basic}
+\begin{enumerate}
+\item \maxtut{basicchapter01}{Hello}
+\item \maxtut{basicchapter03}{Numbers and Lists}
+\item \maxtut{basicchapter06}{Simple Math}
+\item \maxtut{basicchapter21}{Controlling Data Flow}
+\end{enumerate}
+\subsubsection*{Data}
+\begin{enumerate}
+\item \maxtut{datachapter02}{Data Scaling}
+\end{enumerate}
+\subsubsection*{MSP Topic}
+\begin{enumerate}
+\item \msptut{mspdigitalaudio}{How Digital Audio Works}
+\end{enumerate}
+
+
+\section{Visualization}
+
+\begin{enumerate}
+\item Start by turning on the gametrack input at the top of the patch.  
+Notice that nothing happens ;)  This is often the case when working with Max---we 
+have some operation that is happening, but we can't see what it is or what it is doing.
+
+We can assume that the object called \m{o.io.gametrak}{} is sending out data that is being 
+processed by the four \m{o.route}{} objects below it.  The first thing we should do is 
+verify that \m{o.io.gametrak}{} is indeed sending out data, and see what kind of data it is.  
+
+\item Hook up the right inlet of an \mdoc{o.message}{} object to the outlet of the \m{gate}{} object and look at the data.
+(If the Max window is not visible on your monitor, bring it forward by 
+choosing ``Max Window'' under the ``Window'' menu.)
+
+\sshot{4in}{800}{print_gametrak}
+
+Take a close look at the messages in the \mdoc{o.message}{} box (turn off the Gametrak input if the 
+messages are being printed too fast).  Notice that the messages coming from \m{o.io.gametrak}{} 
+are in the form /gametrak/left/x \var{number}, or /gametrak/right/z \var{number}.  
+What do you think the \m{o.route}{} objects are doing in the patch?
+
+
+\item Display the values coming in from the \gt{} by connecting the three leftmost outlets of the
+two \m{o.route}{/x /y /z} objects to number boxes.
+You have a choice between two number boxes:  one that displays floating point (decimal) 
+numbers, and one that displays integers.  Based on what you've seen printed to the \mdoc{o.message}{} box, 
+which one do you think is appropriate here and what happens if you use the wrong one?
+
+\sshot{4in}{600}{number_boxes}
+
+As you move the two joysticks, you should see the numbers change rapidly.  
+While useful for verifying that data is actually flowing through the patch, 
+the numbers are changing so fast that it can be difficult to track them.
+
+
+\item Try visualizing the numbers in the number boxes using the \mdoc{multislider}{} object.  
+(HINT:  \mdoc{multislider}{} has a couple of different modes that are useful for displaying data.  
+In particular, it has a mode called ``pointscroll''--check out the help file.)
+
+\sshot{4in}{600}{multisliders}
+
+%% A single \m{multislider}{} object is capable of visualizing multiple parameters at once.  
+%% Try packing the /x, /y, and /z data from the left \m{o.route /x /y /z}{} object into a 
+%% list with the \m{pack} object and sending that into \m{multislider}{} (don't forget to 
+%% check out the help file for the \m{pack}{} object\ldots).
+
+\end{enumerate}
+
+
+
+
+
+\section{Sonification}
+
+\begin{enumerate}
+\item Start by turning on the audio system by clicking on the speaker icon 
+(\mspdoc{ezdac}{}) at the bottom of the patch.  \textbf{Slowly} turn up the volume by 
+dragging the slider \mspdoc{gain}{} above the speaker.  You should hear a sine wave 
+tuned to 440. Hz, or A above middle C.
+
+We want to control the frequency ({\em pitch}) and amplitude ({\em volume}) of that 
+sine wave using the joysticks of the Gametrak.  
+
+\item Pull the left joystick straight up away from the Gametrak---pull it as far 
+as you can without standing and without winding the cord around anything.  
+Now take note of the /z parameter of the left \m{o.route}{} object---this will 
+be the maximum value of our range (probably somewhere around 0.3).
+
+\item Now let's scale the range of the /z parameter you just recorded to 
+a reasonable range of audible frequencies like 200--3500 Hz.  
+We will do this by using the \mdoc{scale}{} 
+object which takes four arguments:
+  \begin{inparaenum}[(1)]
+    \item minimum input value
+    \item maximum input value
+    \item minimum output value
+    \item maximum output value.
+  \end{inparaenum}
+So, if we want to scale input values that have a range from 0--.3 to 200--3500, 
+we should create a scale object with the arguments \mdoc{scale}{0.0 0.3 200. 3500.} 
+(remember to use floating-point arguments).
+
+Verify that the scaling is working properly by using a number box attached to the 
+output of the \mdoc{scale}{} object.
+
+\sshot{4in}{600}{z_scale}
+
+\item Once you have verified that the scaling is working properly, 
+connect the outlet of the \mdoc{scale}{} object to the inlet of the \msp{cycle~}{} object.
+
+
+
+\item Now let's control the volume with the Gametrak.  Connect the /z parameter of the 
+right joystick to the right inlet of the \msp{*}{} (\mspdoc{times}{}) object after the \msp{cycle~}{}
+object and before the \mspdoc{gain}{} object.  
+
+\sshot{7in}{500}{volume}
+
+
+\end{enumerate}
+
+\end{document}

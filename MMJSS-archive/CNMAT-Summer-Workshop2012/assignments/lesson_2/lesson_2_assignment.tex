@@ -1,0 +1,252 @@
+\input{../common}
+
+\graphicspath{{\imagedir}}
+
+\ctitle{2}
+% \title{CNMAT Max/MSP Summer Class 2011\\Lab Assignment 2}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Summary}
+In this lesson, you will expand on the Theremin you built in lesson 1 by adding
+vibrato as a parameter that you can control with the \gt, adding a second
+voice, and adding distortion that increases with the volume.
+
+\subsection*{Topics}
+Polyphony, encapsulation, abstraction, reuse, parameters.
+
+\subsection*{Objects Introduced}
+% patcher, osc-route, tanh~, *~, +~
+\mdoc{patcher}{}, \mspdoc{tanh}{}, \mspdoc{times}{}, \mspdoc{plus}{}
+
+\subsection*{Relevant Tutorials}
+\subsubsection*{Basic}
+\begin{enumerate}
+\item \maxtut{basicchapter14}{Encapsulation}
+\item \maxtut{basicchapter15}{Abstraction}
+\item \maxtut{basicchapter20}{Presentation Mode}
+\item \maxtut{basicchapter21}{Controlling Data Flow}
+\end{enumerate}
+\subsubsection*{MSP}
+\begin{enumerate}
+\item \msptut{mspchapter01}{Test Tone}
+\item \msptut{mspchapter02}{Adjustable Oscillator}
+\item \msptut{mspchapter03}{Wavetable Oscillator}
+\item \msptut{mspchapter10}{Vibrato and FM}
+\end{enumerate}
+
+\section{Vibrato}
+
+Vibrato is an expressive musical device that is created by slowly oscillating the pitch 
+being played (\href{http://en.wikipedia.org/wiki/Theremin}{Theremin} virtuoso 
+\href{http://en.wikipedia.org/wiki/Clara_Rockmore}{Clara Rockmore} (1911-98) was famous for her beautiful vibrato).  
+Of course, you can add vibrato by simply shaking the part of the \gt{} that controls 
+the frequency of our Theremin, but since it takes many years of practice to be able to control smooth, 
+even vibrato, we'll extend our patch to do it for us.
+
+The \msp{vib}{} object takes two parameters (see the help file for a demonstration):  
+\begin{inparaenum}[(1)]
+  \item the frequency in Hz around which the output will oscillate (left inlet), and
+  \item a parameter between 0--1 that controls both the speed and depth of 
+the oscillation (right inlet).
+\end{inparaenum}
+
+We'll wire the \msp{vib}{} object in between the \mdoc{scale}{} and \mspdoc{cycle}{} objects and control the 
+speed and depth of the oscillation using the \gt.
+
+\begin{enumerate}
+\item Disconnect the \mspdoc{cycle}{} object from the \mspdoc{gain}{} object.
+\item Connect the outlet of the \mdoc{scale}{} object to the left inlet of the \msp{vib}{} object.
+\item Connect the outlet of the \msp{vib}{} object to the left inlet of the \mspdoc{cycle}{} object.
+\item Connect the outlet of the \msp{cycle~}{} object to the left inlet of the \msp{*}{} object.
+\item Now connect the /y value of the left \m{o.route}{/x /y /z} object to the right inlet of the \msp{vib}{} object.
+Even though the controller is sending out values between -1--1, we don't have to change anything because
+the \msp{vib}{} object takes the absolute value of the parameters that enter through the right inlet.
+
+\sshot{2.5in}{400}{vib}
+
+\end{enumerate}
+
+%% \section{Smoothing}
+
+%% The data that comes from the \gt{} can be a little noisy and can add audible jitter to our 
+%% Theremin.  This zipper-like effect is particularly noticeable if you change frequencies rapidly.  
+%% There are many ways to smooth data in Max, two of which are implemented in the \m{smoother}{}
+%% and \msp{smoother} objects.  \m{smoother} is constructed to operate on the data going into the \msp{cycle~}{}{} object, 
+%% while \msp{smoother} is designed to operate on the output of the \msp{cycle~}{} object.  
+%% You need only add one of them to your patch, but you may want to try each of them to see if one works better than the other.
+
+%% 1.  Either wire the \m{smoother} object between the scaled frequency coming from the \gt{} and the \msp{vib}{}{} object,
+
+%% --OR--
+
+%% wire the \msp{smoother} object between the \msp{vib} object and the \msp{cycle~}{} object.
+
+%% For those feeling adventurous, try to write your own smoother (HINT:  \m{smoother} uses \m{zl stream}{}, 
+%% \m{zl sum}, and \m{/}, while \msp{smoother} uses \msp{slide}{}{}.  If we haven't covered those 
+%% objects in class, have a look at their help files to see what they do.).
+
+%% \sshot[2.5in]{smooth}
+
+\section{Polyphony}
+
+Now our Theremin has three parameters that we are controlling with the \gt, but we're not making very efficient
+use of our controller.  In this section, we'll remap the three parameters of the Theremin to the left 
+joystick and make a copy of the instrument that we can control with the right joystick.
+
+\begin{enumerate}
+\item Rewire your patch so that the /x, /y, and /z parameters of the left joystick control the frequency, 
+gain, and vibrato as follows:
+
+\begin{center}
+  \begin{tabular}{|l|l|}
+    \hline
+    \gt{} parameter & Theremin parameter\\
+    \hline
+    \hline
+    /x & frequency\\
+    \hline
+    /y & vibrato\\
+    \hline
+    /z & gain\\
+    \hline
+  \end{tabular}
+\end{center}
+
+Since we had been controlling the frequency with the /z parameter which has a range
+of 0--1 and we will now be controlling the frequency with the /x parameter which 
+has a range of -1--1, we will need to change the arguments of the \mdoc{scale}{} object
+so that the first two are -1--1.
+
+\item Now make a copy of all of the objects between the bottom \m{o.route}{/x /y /z} object 
+and the \mspdoc{gain}{} object.
+
+\sshot{4in}{400}{copy}
+
+\item Wire up the copy so that the right joystick controls the three parameters of the 
+second voice the same way that the left one does. 
+
+\end{enumerate}
+
+\section{Brightness}\label{brightness}
+
+We can improve our Theremin increasing the brightness of the tone as the volume increases.  
+Increased brightness occurs when harmonics are added to our sine wave, which we can do by gradually 
+transforming our nice round sine wave into a square wave.  One way to do this is to increase its
+amplitude and send its output through a \mspdoc{tanh}{} object.  
+See the file called brightness.maxpat in the demos folder for a demonstration of how this works.  
+
+\begin{enumerate}
+
+\item Start wiring a \mspdoc{tanh}{} object between the \msp{*}{} (\mspdoc{times}{}) object and the 
+\mspdoc{gain}{} object for the left voice.
+
+\item Now we want the /z parameter from the \gt{} that is controlling the volume to have
+a greater range so that the signal saturates.  Multiply the /z parameter by 4.
+
+\sshot{4in}{400}{tanh}
+
+\end{enumerate}
+
+\section{Abstraction}\label{abstraction}
+
+We would now like to apply the change that we've made to the left joystick 
+(part \ref{brightness} of today's lab) 
+to the right joystick.  There are at least two ways to implement this change 
+for the second voice that we want to avoid: 
+\begin{inparaenum}[(1)]
+\item we can simply repeat the necessary steps, or we can 
+\item delete the right side and copy the objects from the left and rewire them.
+\end{inparaenum}
+
+While neither of these scenarios may seem like a problem, try to imagine what 
+it would be like if your patch contained 20 voices each with 20 objects.  
+As we continue to copy and paste groups of objects that represent some sort
+of functionality, we quickly run into the need to {\em abstract} that 
+functionality in a way that would allow us to make the change to one
+part of the patch and have that change propagate through all {\em instances}
+of that abstraction.
+
+\begin{enumerate}
+\item Select the objects in the left part of the patch that represent
+the Theremin voice (starting with \mdoc{scale}{} and including \mspdoc{tanh}{}).
+
+\item Under the ``Edit'' menu, choose ``Encapsulate.''
+
+\sshot{4in}{600}{encapsulate_menu}
+
+The objects that you had selected have now been encapsulated in an object called \m{p}{}, 
+which is short for \mdoc{patcher}{}.  We call this object a ``subpatch'' or a ``subpatcher.''
+
+\sshot{2.5in}{400}{subpatch}
+
+\item Double-click on the \m{p}{} object that was just created.  You will see a window that contains 
+all of the objects that you had selected still wired up in the same way.  
+
+\item Now save a copy of that new patch (by choosing ``Save As...'' from under the ``Edit'' menu).
+Save it in the directory for today's lab---the same directory where the main Max patch
+you are editing is.  You can call it anything you like (maybe Theremin.maxpat would be a good choice...).
+
+\item Now close the subpatch window and, back in the main patch, 
+replace the [p] object with the name of the patch you just saved,
+omitting  the .maxpat extension.  So, if you saved your patch with the title Theremin.maxpat, 
+you should make an object called \m{Theremin}{}.  
+
+\sshot{2.5in}{400}{abstraction}
+
+There is no need to rewire your patch---since the subpatch and the abstraction you 
+just made have the same number of inlets and outlets, Max will simply replace
+the subpatch with your \m{Theremin}{} abstraction, keeping the connections
+in tact.
+
+\item Now, make a copy of the \m{Theremin}{} abstraction in the patch and replace the 
+objects that constitute the second voice with the \m{Theremin}{}.
+
+\sshot{2.5in}{400}{polyphony}
+
+\end{enumerate}
+
+\section{Parameters}
+
+The abstraction you made in part \ref{abstraction} allows you to make a 
+change to the file you saved on disk
+(Theremin.maxpat) and to have that change take effect wherever it is used.
+Try it:
+
+\begin{enumerate}
+\item Open the file Theremin.maxpat on your hard drive and make a change to the 
+parameters of the \mdoc{scale}{} object and save the patch.
+
+\item Now, go back to the main patch and double click on both instances of 
+the \m{Theremin}{} abstraction---you should see the changes you made.
+
+But what if we want to change the parameters of the \mdoc{scale}{} object
+in the left instance of the \m{Theremin}{} to \mdoc{scale}{-1. 1. 200. 1000.} 
+and those of the right instance to \m{scale}{-1. 1. 750. 3500.} so that we have a 
+low and a high instrument?  For this, we need to expose these parameters so they can 
+be accessed from the patch that contains the instances.  
+
+\item Open the Theremin.maxpat patch on the hard disk and add two inlets---you can 
+do this by creating a new object and typing ``inlet'' into it, or by selecting, copying
+and pasting two of the inlets that already exist in the patch.
+
+\item Now connect the left inlet you made to the fourth inlet of the \mdoc{scale}{} object
+so that numbers coming in through that inlet control the output minimum value, and 
+connect the right inlet you made to the fifth inlet of the \mdoc{scale}{} object.
+
+\sshot{2.5in}{400}{five_outlets}
+
+\item Save and close Theremin.maxpat.  Notice that the two instances of the 
+abstraction in the main patch have been updated with two new inlets.
+
+\item Now we can control the minimum and maximum frequencies that the 
+\gt's joysticks are mapped to.  Connect number boxes to the new inlets of \m{Theremin}{}
+and set the frequencies to 200 and 1000 for the left and 750 and 3500 for the right.
+
+\sshot{4in}{600}{params}
+
+\end{enumerate}
+
+\end{document}

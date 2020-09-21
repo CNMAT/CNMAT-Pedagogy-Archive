@@ -1,0 +1,107 @@
+rama's depot review notes, in folder order:
+
+for all patches: [o.route slash 0] doesn't work like OSC-route, we probably can take out all the [r OSC] objects in these patches, I think this is a problematic design.
+
+x = no longer relevant
+
+--
+
+/deprecated
+	about_expr: still interesting, but not as used as it used to be
+	about_imovie: not needed (x)
+	about_OSC-route: x
+	change-sym: x
+	clock_diagram: still interesting, but maybe outside our current pedagogy approach?
+	cnmat.round: x
+	/hex-fx
+		these are all still interesting, but need to be updated (see audio_effects)
+    init-to-list: x
+    /jsChord: x (bach library replaces this)
+    /jsMelody: x (bach library replaces this)
+    /jsNotation: x (bach library replaces this)
+    list-*: x (odot and zl)
+    MS-stereo: x (andrew benson patch? not needed)
+    on_arithmetic: x (we might want or already have something like this for odot)
+    on_data-storage: tutors
+
+/dev
+    vhcomment2: x
+
+/examples
+
+/extensions
+
+/extras
+
+/javascript
+
+/jsui
+
+/media
+
+/patchers
+    /basic_DSP
+        asym-tanh~: 
+            cool, should have line~ options to smooth changes (clicks a little)
+        envelope-follower~: 
+            useful, but could use some improvement, for example use edge~
+        only-positive~:
+            interesting, missing a more expressive example
+        slictor~:
+            not needed, better to use matrix~
+    /basic_programming:
+        everything here should be redone in odot... the most tricky material is time I think
+    /data_generation:
+        for pedagogy everything needs a musical example, or cut
+        also, same as above, everything here should be redone in o.expr
+        ... euclidean distance diagram with patch cords is broken now that max has curved patch cables
+    /data_storage:
+        make odot examples, not teaching pattr
+        ali-pattr: x
+        ali-readwrite: x
+        /data_recording:
+            *** this is an important problem that needs to be figured out for odot ***
+            enveloped-recorder~: kind of useful, but this patch is very overly complicated, why not use line~?
+        most of the other patchers seem pretty outdated here
+    /data_streams:
+        to odot (already started for m148B, but needs more work)
+    /data_transformation:
+        BPF-line-scaler: see o.function examples
+        /Calibrators:
+            rcalib: maybe useful, but needs to be redone to be legible
+            rzcalib: ditto
+        durations-to-onsets: broken, nice for odot
+        durations-to-rel: good for odot
+        int2digitlist: x, interesting but missing musical example
+        letter2numblist: x, interesting but missing musical example
+        letter2number: x, interesting but missing musical example
+        lisp2coll: x, not that useful
+        onepole: good, we need more data filter examples for odot
+        OSC-alias: bad idea, very stateful and confusing
+        everything pattr: better to stick to OSC now that we have full bundles
+        splitsymbol: odot examples
+    /depot_support:
+    /diffusion:
+        amp+delay_rectangle: 
+            bad sounding doppler, should use delay xFading instead
+        multipan: interesting, almost spat model, not sure what to do with this
+            *note: maybe we should impletment VBAP in o.expr? shouldn't be very hard since we have the source
+        pan+amp~: okay, sure
+        pancore( see multipan )
+        panhandler~: broken
+        quad_amp ... to odot
+        recording_rect: x
+        simple_square: ... to odot
+    /display_and_notation: (mislabled folder?)
+        key_lookup: seems broken
+        mt_player: ? maybe this patch is used somewhere else
+        waveform_draw: x, but maybe interesting to make jit.buffer~ examples
+    /effects_audio:
+        I think these will be useful for creating m158A examples, although a lot of it will need to be updated, and could use many improvements and more clarity in the programming style.
+
+/source
+
+Piecemaker:
+	this is interesting, but way out of date.
+	it could be useful to create an odot version of this.
+

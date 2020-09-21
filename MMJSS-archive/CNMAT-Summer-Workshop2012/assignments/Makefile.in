@@ -1,0 +1,24 @@
+LESSON = $(shell pwd)
+BASE = $(LESSON)/$(notdir $(LESSON))_assignment
+TEXFILE = $(BASE).tex
+PDFFILE = $(BASE).pdf
+HTMLFILE = $(BASE).html
+
+GENERATED_EXTENSIONS_TO_CLEAN = .log .dvi .aux .4ct .4tc .css .idv .lg .tmp .xref .out
+
+all: $(HTMLFILE) $(PDFFILE)
+
+$(HTMLFILE): $(TEXFILE)
+	htlatex $< 
+
+$(PDFFILE): $(TEXFILE)
+	pdflatex $<
+	pdflatex $<
+
+.PHONY: clean pristine
+clean:
+	rm -rf $(foreach EX, $(GENERATED_EXTENSIONS_TO_CLEAN), $(BASE)$(EX)) $(BASE).ps $(LESSON)/zz$(notdir $(LESSON))_assignment.ps texput.log
+
+pristine:
+	$(MAKE) clean
+	rm -rf $(PDFFILE) $(HTMLFILE)

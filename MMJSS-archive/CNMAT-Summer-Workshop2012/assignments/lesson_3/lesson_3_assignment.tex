@@ -1,0 +1,181 @@
+\input{../common}
+
+\graphicspath{{\imagedir}}
+
+\ctitle{3}
+% \title{CNMAT Max/MSP Summer Class 2011\\Lab Assignment 3}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Summary}
+In this lesson, we will create a data storage and retrieval mechanism.  We'll use the \mdoc{function}{} object as our model, so that we can build up envelopes.  These envelopes will eventually help us to make interesting sounds, but for now let's focus on building an interesting function storage/recall tool.
+
+\subsection*{Topics}
+transfer functions, data storage, data recall, encapsulation, abstraction.
+
+\subsection*{Objects Introduced}
+\mdoc{function}{}, \mdoc{textedit}{}, \mdoc{line}{}, \mdoc{route}{}, \mdoc{zl}{}, \mdoc{prepend}{}, \mdoc{trigger}{}, \mspdoc{line}{}
+
+\subsection*{Relevant Tutorials}
+\subsubsection*{Basic}
+\begin{enumerate}
+\item \maxtut{basicchapter15}{Abstraction}
+\item \maxtut{basicchapter18}{Data Collections}
+\item \maxtut{basicchapter11}{Procedural Drawing} (using line)
+\end{enumerate}
+\subsubsection*{MSP}
+\begin{enumerate}
+\item \msptut{mspchapter07}{Additive Synthesis} (including Envelopes)
+\end{enumerate}
+
+\section{Data Collection, Storage, and Recall}\label{storage and recall}
+
+\subsection{Data Collection}
+\begin{enumerate}
+\item Open up a new patch window
+\item Place a new \mdoc{function}{} object into the patch (type ``n'' for ``new object'', type in the word ``function'', and hit ``enter''.  You should see a new box appear in your patch).
+\item Lock the patch, and try drawing some shapes by clicking in the box with your cursor.  To erase the points you have made, create a \msg{clear} message, and patch it to the inlet of the \mdoc{function}{} object.
+\item Place a new \mdoc{trigger}{bang dump} object into the patch (remember that ``trigger'' can be abbreviated as ``t''), and connect its rightmost outlet (the one associated with ``dump'') to the inlet of the \mdoc{function}{} object.
+\item Place a new \mdoc{button}{} object in your patch, and connect the rightmost outlet of the \mdoc{function}{} object to the inlet of the \mdoc{button}{} object (this outlet will output a \msg{bang} when we mouse up after a click).  Then, connect the outlet of the \mdoc{button}{} object to the inlet of the \mdoc{trigger}{} object.
+\item Create a \mdoc{zl}{2048 group} object\footnote[1]{\mdoc{zl}{} accepts an optional integer as the first argument that sets the size of its internal buffer.}, and connect the leftmost outlet (bang) of the \mdoc{trigger}{} object to left inlet of the \mdoc{zl}{2048 group} object.
+\item Now connect the 3rd outlet of the \mdoc{function}{} object to the left inlet of the \mdoc{zl}{2048 group} object.  When the \mdoc{function}{} object receives a \msg{dump} message, the third outlet will output all of the points that it contains in successive lists of (x,y) pairs.  We want to collect these into a single list which we can accomplish with \mdoc{zl}{2048 group}.  Once the \mdoc{function}{} object is done outputting our coordinates, we will send a bang to \mdoc{zl}{2048 group}, which will output them all into one long list.  
+\end{enumerate}
+
+Your patch should now look something like this:
+\sshot{2.5in}{400}{func_collect}
+
+Let's pause for a second to review what we've just done:
+\begin{itemize}
+\item We click the \mdoc{function}{} object to add a new point (or to modify an existing point)
+\item We let go of the mouse button (this is called a ``mouseup'' event)
+\item A bang is issued from the \mdoc{function}{} object's right outlet as a result of the mouseup
+\item The bang is sent to the \mdoc{trigger}{} object's inlet
+\item \mdoc{trigger}{} first tells the \mdoc{function}{} object to dump its contents, then once ALL of the contents are dumped, it tells \mdoc{zl}{2048 group} to output its contents
+\end{itemize}
+
+\subsection{Data Storage}
+Since our data is now bundled together via \mdoc{zl}{2048 group}, we can easily send it to \mdoc{dict}{} to store it as the values in an index
+but there's one issue:  how do we create indices for these data?  Let's use a handy mode of \mdoc{zl}{} called ``join'', which joins two lists together.
+We'll join our data together with a one element list that describes the data. Something like \msg{mydata 0.1 0.3 44.41 33.1}.  This functionality is very similar to that of \mdoc{pack}{}, \mdoc{pak}{}, and \mdoc{prepend}{}.  How would you achieve the same basic functionality using the prepend object instead of \mdoc{zl}{join}? 
+
+\begin{enumerate}
+\item Create a \mdoc{zl}{join} object.
+\item Connect the lefmost outlet of \mdoc{zl}{2048 group} to the right inlet of \mdoc{zl}{join}.
+
+Now we need a way to get the names of our indices (preset names) into the left inlet of \mdoc{zl}{join}.  For this task, we can use a \mdoc{textedit}{} object.
+
+\item Create a new \mdoc{textedit}{} object.
+\item Create a new \mdoc{route}{} object, with the argument ``text'', as in \mdoc{route}{text}.
+\item Go into the \mdoc{textedit}{} object's inspector, and check the attribute labeled ``Return Enters Text''.
+\item Connect the left outlet of the \mdoc{textedit}{} object to the left inlet of \mdoc{route}{}.
+\item Connect the left outlet of \mdoc{route}{text} to the left inlet of \mdoc{zl}{join}.
+
+Each time we click, a new set of points are sent into \mdoc{zl}{2048 group}, and then into \mdoc{zl}{join}.  After a list leaves \mdoc{zl}{2048 group}, the object is cleared and ready for a new set of points.  In this way we are building up lists to store into the right inlet of \mdoc{zl}{join} as we edit functions, and once we have finished editing, we can enter in a descriptor for that particular \mdoc{function}{}.  When we enter in this text, it gets output together with the larger list.  
+
+Now we just need to make sure that we give the correct storage message to dict.  Our current messages would read \msg{myPresetName 0.1 0.3 44.41 33.1}, but we really need \\*\msg{set myPresetName 0.1 0.3 44.41 33.1}.  If you'd like to know more about guidelines for storage of data in \mdoc{dict}{}, refer to the object's help file.
+
+\item Create a new \mdoc{prepend}{} object, and give it an argument, so that it reads: \mdoc{prepend}{set}.  Also create a new \mdoc{dict}{} object.
+\item Connect the outlet of \mdoc{zl}{join} to the inlet of the \mdoc{prepend}{set} object.
+\item Connect the outlet of the \mdoc{prepend}{set} object to the inlet of the \mdoc{dict}{} object.
+\item Create a new \mdoc{zl}{slice 1} object.  This will route off the preset name from the response dict issues from a 'get' message (We'll cover this later).
+\item Create a new \mdoc{zl}{iter 2} object.  This is going to allow us to break our singular list back up into xy pairs, which can then be sent back to the \mdoc{function}{} object to restore our saved preset.\footnote[2]{Our \mdoc{function}{} object takes pairs of numbers representing (x,y) coordinates, and, upon receipt of a \msg{dump} message, outputs all of its stored points as a sequence of (x,y) pairs.  However, we want to store our data in a \mdoc{dict}{} object as a single list of the form (x1 y1 x2 y2... xn yn) which means that we will have to build a mechanism to group the coordinates that \mdoc{function}{} outputs into a single list for storage, and a similar mechanism that breaks that list up into a sequence of (x,y) pairs that we can send back to \mdoc{function}{}}
+\item Connect the 2nd outlet of the \mdoc{dict}{} object to the left inlet of the \mdoc{zl}{slice 1} object.
+\item Connect the right outlet of the \mdoc{zl slice 1}{} object (everything but the name of our preset) to the left inlet of the \mdoc{zl}{iter 2} object. 
+\item Connect the left outlet of \mdoc{zl}{iter 2} to the inlet of the \mdoc{function}{} object.
+
+Now we are ready to test our preset system.
+
+\item Draw a function in the \mdoc{function}{} object, then give it a name.  Create a few more functions and give them unique names (you can clear the \mdoc{function}{} object by sending it the \msg{clear} message).
+\item Double-click on the \mdoc{dict}{} object to see its contents.  Do you see your two presets?  If not, go back to the previous steps to review.
+\end{enumerate}
+
+\subsection{Data Recall}
+Stop and take a moment to make sure everything is functioning as expected.  If so, let's move on to recalling our presets.
+
+\begin{enumerate}
+\item Create two new message boxes containing two of the function names you have chosen.
+\item Create a new \mdoc{trigger}{} object like so: \mdoc{trigger}{s clear}, and connect the outlet of the \msg{mypreset1} message to the inlet of \mdoc{trigger}{s clear}.  Do the same for the other.
+\item Connect the right outlet of \mdoc{trigger}{s clear} (the \msg{clear} message) to the inlet of \mdoc{function}{}.
+\item Connect the middle outlet of \mdoc{trigger}{s clear} (``s'' stands for ``symbol'' and will pass your preset name through) to the inlet of \mdoc{dict}{}, which will call up the data for that particular preset name.
+\item Create a new \mdoc{prepend}{} object like so: \mdoc{prepend}{get}, and connect its outlet to the left inlet of the \mdoc{dict}{} object.
+\item Connect the left outlet of \mdoc{trigger}{s clear} to the inlet of \mdoc{prepend}{get}, which will call up the data for that particular preset name.
+\item Lock the patch, and notice that when you click back and forth between presets that the \mdoc{function}{} object clears properly before accepting new data, and that our presets are restored properly.
+\end{enumerate}
+
+Your patch should now look something like the following: 
+\sshot{3in}{400}{func_store_recall}
+
+\section{Encapsulation}\label{encapsulation}
+So how can we encapsulate this?  Let's start by figuring out what portions of our patch we would like to be within a subpatcher.
+Here are the relevant objects:  
+\begin{itemize}
+\item \mdoc{zl}{join}
+\item \mdoc{zl}{group}
+\item \mdoc{prepend}{set}
+\item \mdoc{prepend}{get}
+\item \mdoc{trigger}{s clear}
+\item \mdoc{dict}{}
+\item \mdoc{zl}{slice 1}
+\item \mdoc{zl}{iter 2}
+\end{itemize}
+
+\subsection{Re-routing}\label{re-routing}
+
+One way to make the process of encapsulation easier is to program the encapsulation \emph{depth first}; that is, to patch as though you're already inside of a subpatcher.  In this case, we might want a \mdoc{route}{} object to act as a catch-all for our various instructions and data types.  As we'll see momentarily, \mdoc{route}{} can handle the various types of input we'll want all in one inlet, instead of having too many inlets to label and keep track of.  Keep in mind that we'd like our module to respond to special messages like \msg{store}, \msg{recall}, and \msg{bang}.  Let's also include lists.  Make a new object like so: \mdoc{route}{list store recall bang}.
+
+\sshot{2.5in}{400}{encap0}
+
+Let's break the following connections:
+
+\begin{enumerate}
+\item Disconnect \mdoc{function}{} from \mdoc{zl}{2048 group}
+\item Disconnect the ``bang'' outlet of \mdoc{trigger}{b dump} from \mdoc{zl}{2048 group}
+\item Delete any \msg{message} containing preset names (We'll add a feature here making these obsolete).
+\item Disconnect the outlet of \mdoc{route}{text} from \mdoc{zl}{join}
+\end{enumerate}
+
+Now add some new objects:
+
+\begin{enumerate}
+\item Create a new \mdoc{prepend}{store} object.
+\item Connect your \mdoc{route}{text} object's left outlet to the inlet of this new \mdoc{prepend}{store} object.
+\item Duplicate this object chain (\mdoc{textedit}{}, \mdoc{route}{text}, \mdoc{prepend}{store}).
+\item Rename the \mdoc{prepend}{store} to \mdoc{prepend}{recall}, and connect both \mdoc{prepend}{recall} and \mdoc{prepend}{store} to the left inlet of \mdoc{route}{list store recall bang}.
+\item Connect the left outlet of \mdoc{trigger}{bang dump} to \mdoc{route}{list store recall bang}.
+\item Make sure that the right outlet of \mdoc{trigger}{bang dump} is still going to the \mdoc{function}{} object.
+
+Finally, we'll make the new \mdoc{route}{} connections: 
+
+\item Connect \mdoc{route}{}'s bang outlet to \mdoc{zl}{2048 group}'s left inlet
+\item Connect \mdoc{route}{}'s list outlet to \mdoc{zl}{2048 group}'s left inlet
+\item Connect \mdoc{route}{}'s store outlet to \mdoc{zl}{join}'s left inlet
+\item Connect \mdoc{route}{}'s recall outlet to \mdoc{trigger}{s clear}'s inlet
+\end{enumerate}
+
+\subsection{Patch to subpatch}\label{patch to subpatch}
+
+Now select all relevant objects for encapsulation, like so:
+\sshot{2.5in}{400}{encapsel}
+Choose ``Edit / Encapsulate'' to encapsulate the contents:
+\sshot{3in}{400}{encap2}
+
+Let's rename this subpatcher to have a name that we'll remember.  In our case, we should name it ``env\_store\_recall'', as we'll be using this particular filename later:
+\sshot{3in}{400}{encap3}
+
+\section{Abstraction}\label{abstraction}
+
+Take a minute to make sure that everything is working with your new subpatcher.  If you are satisfied, move on to making this handy utility an abstraction so that we can use many of them easily:
+
+\begin{enumerate}
+\item Double-click on \mdoc{patcher}{env\_store\_recall}.
+\item Give \mdoc{dict}{} a changeable argument via the \# sign, like so: \mdoc{dict}{\#1}
+\item Choose ``File / Save-as...'', and save the file to disk inside of your max enabled folder (Notice that the filename is drawn from the edited subpatcher name).
+\item To test whether or not the file is now seen by Max, name a new object and type ``env\_store\_recall'' as the name:
+\item Try giving your abstraction a unique name, such as ``myenvs'' or similar, like so: \m{env\_store\_recall}{myenvs}.  Notice that you can have many abstractions with different names.  These abstractions will refer to different envelope data sets.
+\end{enumerate} 
+\sshot{3.5in}{350}{fileverify}
+If you'd like, feel free to copy the ``cnmat\_function\_manager.maxhelp'' file and replace the abstraction's name there with our lesson's name (``env\_store\_recall'').  Now you're ready to create, manage, and use many envelopes.  Think about how this lesson might relate to other objects, in terms of managing their state.
+
+\end{document}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="792px" height="612px" viewBox="0 0 792 612" enable-background="new 0 0 792 612" xml:space="preserve">
+<rect x="112" y="119" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="104" height="18"/>
+<rect x="109" y="192.3" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="104" height="18"/>
+<ellipse fill="#FFFFFF" stroke="#000000" stroke-width="3" stroke-miterlimit="10" cx="305" cy="85" rx="6.5" ry="6"/>
+<circle fill="#FFFFFF" stroke="#000000" stroke-width="3" stroke-miterlimit="10" cx="340" cy="81" r="6"/>
+<circle stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" cx="194" cy="344" r="6"/>
+<text transform="matrix(1 0 0 1 293.0303 66.3333)" font-family="'MyriadPro-Regular'" font-size="12px">transducers</text>
+<text transform="matrix(1 0 0 1 161 357.0003)" font-family="'MyriadPro-Regular'" font-size="12px">contact mic</text>
+<text transform="matrix(1 0 0 1 304.9998 127)" font-family="'MyriadPro-Regular'" font-size="12px">capacitor</text>
+<text transform="matrix(1 0 0 1 279.6665 126.9998)" font-family="'MyriadPro-Regular'" font-size="12px">fuse</text>
+<text transform="matrix(1 0 0 1 130.5 131.3333)" font-family="'MyriadPro-Regular'" font-size="12px">amplifier</text>
+<text transform="matrix(1 0 0 1 126.1668 204.6665)" font-family="'MyriadPro-Regular'" font-size="12px">audio interface</text>
+<rect x="123.7" y="266" fill="#FFFFFF" stroke="#000000" stroke-width="0.8663" stroke-miterlimit="10" width="78" height="18"/>
+<text transform="matrix(1 0 0 1 140.8334 278.3332)" font-family="'MyriadPro-Regular'" font-size="12px">preamp</text>
+<rect x="319" y="379.8" fill="#FFFFFF" stroke="#000000" stroke-width="0.8663" stroke-miterlimit="10" width="78" height="18"/>
+<text transform="matrix(1 0 0 1 336.1445 392.3789)" font-family="'MyriadPro-Regular'" font-size="12px">USB hub</text>
+<path fill="none" stroke="#ED1C24" stroke-miterlimit="10" d="M184,119c0,0,11-34,40-27s75-5,75-5"/>
+<path fill="none" stroke="#ED1C24" stroke-miterlimit="10" d="M194,117.8c0,0,7-28.8,36-21.8s110,9,110-9"/>
+<path fill="none" stroke="#ED1C24" stroke-miterlimit="10" d="M117.3,204.7c0,0-44,52.3,3.3,70.3"/>
+<text transform="matrix(1 0 0 1 112.0001 225.6663)" font-family="'MyriadPro-Regular'" font-size="12px">XLR in</text>
+<text transform="matrix(1 0 0 1 66.5703 186.9997)" font-family="'MyriadPro-Regular'" font-size="12px">1/4” out</text>
+<text transform="matrix(1 0 0 1 86.9871 80.9999)" font-family="'MyriadPro-Regular'" font-size="12px">RCA in</text>
+<text transform="matrix(1 0 0 1 74.6666 284.0002)" font-family="'MyriadPro-Regular'" font-size="12px">XLR out</text>
+<text transform="matrix(1 0 0 1 204.8956 275.0003)" font-family="'MyriadPro-Regular'" font-size="12px">1/4” in</text>
+<text transform="matrix(1 0 0 1 178.6667 84.9998)" font-family="'MyriadPro-Regular'" font-size="12px">speaker wire out</text>
+<rect x="299" y="97.7" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="16.7" height="4.7"/>
+<rect x="288.7" y="98.6" fill="#FFFFFF" stroke="#000000" stroke-width="0.5117" stroke-miterlimit="10" width="4.4" height="4.7"/>
+<rect x="260.3" y="91" fill="#FFFFFF" stroke="#000000" stroke-width="0.5117" stroke-miterlimit="10" width="4.4" height="4.7"/>
+<rect x="270.3" y="88.6" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="16.7" height="4.7"/>
+<g>
+	<line fill="#FFFFFF" x1="311.5" y1="105" x2="323" y2="119.8"/>
+	<g>
+		<line fill="none" stroke="#000000" stroke-width="0.25" stroke-miterlimit="10" x1="312.4" y1="106.2" x2="323" y2="119.8"/>
+		<g>
+			<path d="M311.5,105c0.2,0.7,0.4,1.7,0.4,2.4l0.7-1.1l1.2-0.4C313,105.8,312.1,105.4,311.5,105z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<line fill="#FFFFFF" x1="290.8" y1="106.7" x2="288.7" y2="117.8"/>
+	<g>
+		<line fill="none" stroke="#000000" stroke-width="0.25" stroke-miterlimit="10" x1="290.6" y1="108.1" x2="288.7" y2="117.8"/>
+		<g>
+			<path d="M290.8,106.7c-0.4,0.6-1,1.4-1.6,1.9l1.2-0.2l1.1,0.7C291.2,108.4,291,107.4,290.8,106.7z"/>
+		</g>
+	</g>
+</g>
+<path fill="none" stroke="#ED1C24" stroke-miterlimit="10" d="M118.3,190.1c1.3-18.7-33.9-24.1-38-45.7
+	c-5.4-28.6,12.7-61.2,27.3-60.7c11.5,0.4,19.9,21.2,24,33.3"/>
+<path fill="none" stroke="#ED1C24" stroke-miterlimit="10" d="M126.5,190.1c1.3-18.7-33.9-24.1-38-45.7
+	c-5.4-28.6,3.9-53.8,18.5-53.3c11.5,0.4,12.5,14.6,16.6,26.8"/>
+<rect x="339.7" y="196.5" fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" width="94" height="66.7"/>
+<rect x="169" y="478.3" fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" width="94" height="66.7"/>
+<text transform="matrix(1 0 0 1 376.9997 233.1667)" font-family="'MyriadPro-Regular'" font-size="12px">BCF</text>
+<text transform="matrix(1 0 0 1 199.9998 521.0005)" font-family="'MyriadPro-Regular'" font-size="12px">laptop</text>
+<text transform="matrix(1 0 0 1 223.6667 211.9998)" font-family="'MyriadPro-Regular'" font-size="12px">USB</text>
+<text transform="matrix(1 0 0 1 359.6672 281.5002)" font-family="'MyriadPro-Regular'" font-size="12px">USB</text>
+<text transform="matrix(1 0 0 1 130.5 503.9993)" font-family="'MyriadPro-Regular'" font-size="12px">USB 1</text>
+<text transform="matrix(1 0 0 1 270.3335 503.9988)" font-family="'MyriadPro-Regular'" font-size="12px">USB3 (Win) or Thunderbolt (Mac)</text>
+<path fill="none" stroke="#00AEEF" stroke-miterlimit="10" d="M212,200c59.3-9.6,84.7,3.3,97,17c20.7,23.2-36,75.9-38.7,133
+	c-2,43-183.6,130-109.3,143"/>
+<path fill="none" stroke="#ED1C24" stroke-width="1.0943" stroke-miterlimit="10" d="M194,342c0,0,24.4-15.1,21.6-41
+	c-2.6-23-12.3-26-12.3-26"/>
+<rect x="22" y="31" fill="none" stroke="#808285" stroke-miterlimit="10" width="539" height="403"/>
+<text transform="matrix(1 0 0 1 30 44)" font-family="'MyriadPro-Regular'" font-size="12px">base-kit</text>
+<line fill="none" stroke="#00AEEF" stroke-miterlimit="10" x1="389" y1="404" x2="526" y2="509.2"/>
+<line fill="none" stroke="#00AEEF" stroke-miterlimit="10" x1="350" y1="275" x2="350" y2="368"/>
+<line fill="none" stroke="#32B44A" stroke-miterlimit="10" x1="315.7" y1="392.4" x2="278.7" y2="478.3"/>
+<text transform="matrix(1 0 0 1 535 514.1667)" font-family="'MyriadPro-Regular'" font-size="12px">to sub kit</text>
+<rect x="465.3" y="328.7" fill="none" stroke="#000000" stroke-miterlimit="10" width="19.3" height="53.2"/>
+<text transform="matrix(1 0 0 1 418.9997 325.8336)" font-family="'MyriadPro-Regular'" font-size="12px">TRS cable</text>
+<text transform="matrix(1 0 0 1 408 168.1668)" font-family="'MyriadPro-Regular'" font-size="12px">TRS pedal in</text>
+<text transform="matrix(1 0 0 1 437.6664 394.8336)" font-family="'MyriadPro-Regular'" font-size="12px">expression pedal</text>
+<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M478.3,328.7c-3.3-19,1.5-48,6.3-52.8c7.5-7.5,21.7-41.2,22.7-59.5
+	c1.1-21-15.9-38.2-27-38.3c-11.5-0.2-57-5.5-67,13.8"/>
+</svg>

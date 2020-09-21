@@ -1,0 +1,64 @@
+
+Wacom 
+	- has a pen
+	- pressure sensitivity of fingers could be better
+		- but pressure capabilities of the pen are quite good
+	- data seemed easy to interpret, seems more stable
+	- good tracking of fingers
+	- has a particular texture, tactile feel
+
+Camera
+	- too irratic, seemed difficult to work with continutity between frames
+		- data is changing constantly, difficult to study
+	- lighting required an additional layer to the complexity
+	- frame delta seems effective
+	- the blob tracking is problematic
+	- motion detection is cool!
+	- the stable environment for blobs is more "a problem"
+
+BCF2000
+	- familiar object, a mixer
+	- challenge: how are you going to use it in a different way than just using it to manipulate a track or EQ?
+	- good way to visualize the data, it's right in front of you and physical
+	- the thing itself makes sound!
+	- discrete
+	- doesn't jump around
+	- buttons are cool
+	- you can get -1 from the slider on the display
+	- knob values are clipped 0-127 but the knobs phyiscally move continuously
+
+	foot controller coming soon!
+
+Lemur
+	- smooth glass
+	- wireless, more mobile
+		- possible interferences
+	- was unable to send OSC to two computers at the same time
+	- is it possible to use the wired connection?
+	- has visible feedback!
+	- does the lemur give accerorometer data? light sensing? microphone?	
+
+contact microphone
+	- tests with table, need to access different pitches and notes, frequency ranges
+	- midi notes were detected
+	- put it on a water bottle 
+	- good for isolating the signal and avoid crosstalk
+	- good for amplifiying small sounds
+	- contact mic seems noisy looking at the spectroscope, maybe good for percussive sounds
+	- techniques for sensing needs to be developed
+	- tape or adhesive
+	- might require processing to make interesting sounds
+	- it's analog, has the potential to be very immediate
+
+Esplora
+	- has a lot of sensors
+	- but it's a game controller
+	- theatrical
+	- generation kill
+
+(Breath Controller)
+
+
+Lab: setup contact mics with new audio interface/mixers, experiment with sounds that come in, then try using the contact mic to control something
+
+

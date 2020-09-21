@@ -1,0 +1,233 @@
+\input{../common}
+
+\graphicspath{{\imagedir}}
+
+%\title{CNMAT Max/MSP Summer Class 2011\\Lab Assignment 4}
+\ctitle{4}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Summary}
+In \autoref{sec:envelopes} of this lesson, you will use the tool for managing 
+envelopes that you worked on in lesson 3 to shape the amplitude envelope
+of a simple \href{http://en.wikipedia.org/wiki/Frequency_modulation}{Frequency Modulation} (FM) 
+synthesizer.  In \autoref{sec:buffer}, you will load soundfiles into
+buffers and play them back, adjusting the speed of playback and loop points.
+
+\subsection*{Topics}
+Data storage and recall, envelopes, sound file buffers and playback.
+
+\subsection*{Objects Introduced}
+%objects: buffer~, info~, loadmess, loadbang, key, select, groove~, sig~, line~, 
+\mspdoc{buffer}{}, \mspdoc{info}{}, \mdoc{loadmess}{}, \mdoc{loadbang}{}, \mdoc{key}{},
+\mdoc{select}{}, \mspdoc{groove}{}, \mspdoc{sig}{}, \mspdoc{line}{}
+
+\subsection*{Relevant Tutorials}
+\subsubsection*{Basic}
+\begin{enumerate}
+\item \maxtut{basicchapter18}{Data Collections}
+\end{enumerate}
+\subsubsection*{MSP Topic}
+\begin{enumerate}
+%msp tutorial 4, 6, 7, 10 ,11, 14, 17, 23, 24
+\item \msptut{mspchapter04}{Routing Signals}
+\item \msptut{mspchapter06}{A Review of Fundamentals}
+\item \msptut{mspchapter07}{Additive Synthesis}
+\item \msptut{mspchapter10}{Vibrato and FM}
+\item \msptut{mspchapter11}{Frequency Modulation}
+\item \msptut{mspchapter14}{Playback with Loops}
+\item \msptut{mspchapter17}{Sampling Review}
+\item \msptut{mspchapter23}{Viewing Signal Data}
+\item \msptut{mspchapter24}{Oscilloscope}
+\end{enumerate}
+
+\section{Envelopes}\label{sec:envelopes}
+
+We will use the envelope tool you built yesterday to control the amplitude of the FM
+synthesizer in today's exercise.
+
+\begin{enumerate}
+\item Copy the the envelope management system (``env\_store\_recall'', along with all of its supporting objects) that you made in the previous lesson and paste them into today's patch (lesson\_4\_fm.maxpat).  
+\item Read in the text file containing the envelopes you created by sending
+\m{env\_store\_recall}{} an \msg{import} message.
+Make sure you verify that the file was loaded correctly by sending the \msg{edit} message
+to \m{env\_store\_recall}{}.
+\item Create a \mdoc{button}{} object, and connect its outlet to the inlet of the \mdoc{function}{} object.
+\item Create a \mspdoc{sig}{} object, and connect its outlet to the first inlet of \msp{simplefm}{}.
+\item Connect the 2nd outlet (from the left) of the \mdoc{function}{} object to the left inlet of a \mspdoc{line}{} object.
+\item Connect the left outlet of the \mspdoc{line}{} object to the right inlet of the \msp{*}{1.0} (\mspdoc{times}{}) object just above the \mspdoc{gain}{} object at the bottom of the patch.
+\item Now turn on the audio by clicking on the speaker icon at the bottom of the patch and 
+\textbf{slowly} turn up the volume.
+\item Click the \mdoc{button}{} connected to the inlet of the \mdoc{function}{} object.  The volume of the
+FM synthesizer should now be controlled by the shape of the envelope.
+\end{enumerate}
+
+Your patch should now look roughly like this:
+\sshot{5in}{800}{fm_done}
+
+\subsection{Extra}
+
+For those of you who make it through the first part of the assignment easily, try the following extra
+tasks:
+
+\begin{enumerate}
+\item Use the \mdoc{key}{} object in conjunction with the \mdoc{select}{} object to control the envelope
+with the space bar.
+\item The FM synthesizer has three parameters controlled by signals in the three inlets.  These
+parameters are, from left to right, the
+\begin{inparaenum}[(1)]
+  \item carrier frequency (the pitch),
+  \item harmonicity ratio (controls how consonant or dissonant the tone is)
+  \item modulation index (controls the brightness of the tone---similar to the effect of adding \mspdoc{tanh}{}
+to our synthesizer in lesson 2).
+\end{inparaenum}
+
+Add envelope control to the three parameters discussed above.  (HINT:  you will need to scale the output
+of the \mspdoc{line}{} object appropriately for each parameter.)
+
+\item Add a message to scale the duration of the envelopes in the \mdoc{function}{} object.  Check the help
+file of the \mdoc{function}{} object to see what message you can use to change the length of the function.
+
+\item Rewire the patch so that one of the parameters of the \gt{} controls the position in the envelope
+(i.e., /x the position of the joystick, for example, might represent the position along the x-axis
+of the \mdoc{function}{} object.
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Sound file playback with \mspdoc{buffer}{}}\label{sec:buffer}
+
+\begin{enumerate}
+
+\item Open the patch called lesson\_4\_sampling.maxpat.
+
+\item Start by creating a \mspdoc{buffer}{} object and give it a name as its first argument, e.g.
+\mspdoc{buffer}{sound1}.  This name is the name by which other objects will access the sound file
+that the \mspdoc{buffer}{} contains.
+
+\item Send the \mspdoc{buffer}{} the \msg{replace} message---an open file dialog will appear
+that you can use to navigate to a sound file.  Choose a short sound file in either AIFF or WAV
+format (there are short sound files in the CNMAT MMJ-Depot in the media/audio directory).
+
+\item Double-click on the \mspdoc{buffer}{} object---a small window showing the waveform should open up.
+If the window is empty, check the Max window for errors.
+
+\item\label{groove-refer} Now, we need to tell the \mspdoc{groove}{} object to {\em refer} to your \mspdoc{buffer}{}.  
+This can be done by either changing the first argument of \mspdoc{groove}{} to the same name as the 
+buffer, or by sending \mspdoc{groove}{} the message \msg{set \var{buffername}}where \var{buffername}
+is the first argument of the \mspdoc{buffer}{}.
+
+\item Now, turn the audio system on by clicking on the speaker icon at the bottom of the patch
+and \textbf{slowly} bring up the \mspdoc{gain}{} slider.
+
+\item \mspdoc{groove}{} requires two things in order for it to play back a sound that it is referring to:
+\begin{enumerate}
+\item the speed of playback (as a signal), and
+\item the point in the sound file from which to start (a message).
+\end{enumerate}
+A signal object \mspdoc{sig}{1.0} has already been connected to \mspdoc{groove}{} for you---this 
+is the speed of playback.  Now, connect a message box to \mspdoc{groove}{} and send it the message
+\msg{0}.  You should hear the entirety of your sound file played at ``normal'' speed.
+
+\item Referring to the \mspdoc{groove}{} help file if you need to, see if you can figure out how to make the sound
+play back at twice the speed, or at half the speed.  
+
+\item Use the \gt{} to control the speed of the playback.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Starting from the middle of the file}
+
+Now we would like to start playing from the middle of the file.  In order to do that, we need
+to know the length of the sound file in milliseconds.
+
+\begin{enumerate}
+\item Start by creating an object called \mspdoc{info}{} that refers to your \mspdoc{buffer}{} 
+(see step \ref{groove-refer} in the previous section).
+
+\item Open the help file for \mspdoc{info}{} to see what the different outlets do.  Note the one 
+that tells us the duration of the sound loaded into the \mspdoc{buffer}{} to which
+the object refers.  Back in your patch, connect a number box to that outlet and send \mspdoc{info}{}
+a bang.  You should now see the duration of your buffer in the number box.
+
+\item We now have the duration of our sound file---see if you can 
+finish wiring up the patch so that you can start the sample playback from anywhere you like.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Extra}
+
+\begin{enumerate}
+\item Use a \mdoc{multislider}{} to set the start point in the sample.  Have the \mdoc{multislider}{}
+output values from 0--1 by changing the range in the inspector, and then multiply by the 
+total duration of the sound file in milliseconds.
+
+\item Use one of the parameters from the \gt{} to set the start position.  (HINT:  since
+the \gt{} is constantly sending out values, you will have to store them and trigger them 
+with something, e.g. the space bar, or the mouse.).
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Looping}
+
+\mspdoc{groove}{} has the ability to continually play a section of a sound file indefinitely.
+The middle and right inlets control the loop start and stop points.  
+
+\begin{enumerate}
+\item Take two \mdoc{multislider}{}s and have them output values from 0--1 and scale them
+by multiplying their output by the duration of the sound file in milliseconds.
+
+\item Now send \mspdoc{groove}{} the message \msg{loop 1} followed by \msg{startloop}.  The
+sound file should now be looping over the two loop points you have set.  
+\end{enumerate}
+
+\end{document}

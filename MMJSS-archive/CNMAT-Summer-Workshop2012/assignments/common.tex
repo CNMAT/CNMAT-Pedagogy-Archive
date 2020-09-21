@@ -1,0 +1,112 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{verbatim}
+\usepackage{ifpdf}
+\usepackage{MnSymbol}
+\usepackage{hyperref}
+
+\newcommand{\ctitle}[1]{\title{CNMAT Max/MSP Summer Workshop \the\year\\Lab Assignment #1}}
+
+\def\imagedir {images/}
+
+% counter to protect against nested \HCode calls
+\newcounter{hcode-counter}
+
+% tutorial link
+% \newcommand{\tut}[3]{\href{http://www.cycling74.com/docs/max5/tutorials/#1/#2.html}{#3}}
+\newcommand{\tut}[3]{\href{http://cycling74.com/docs/max6/dynamic/c74_docs.html\##2}{#3}}
+\newcommand{\maxtut}[2]{\tut{max-tut}{#1}{#2}}
+\newcommand{\msptut}[2]{\tut{msp-tut}{#1}{#2}}
+
+% max object
+\newcommand{\m}[2]{[#1~#2]}
+%\newcommand{\mdoc}[2]{[\href{http://www.cycling74.com/docs/max5/refpages/max-ref/#1.html}{#1}~#2]}
+\newcommand{\mdoc}[2]{[\href{http://cycling74.com/docs/max6/dynamic/c74_docs.html\##1}{#1}~#2]}
+
+% msp object
+\newcommand{\msp}[2]{
+\ifpdf
+\m{#1$\sim$}{#2}
+\else
+\ifnum\value{hcode-counter} > 0
+\m{#1~ #2}
+\else
+\HCode{[#1&\#126; #2]}
+\fi
+\fi
+}
+
+\newcommand{\mspdoc}[2]{
+\ifpdf
+%[\href{http://www.cycling74.com/docs/max5/refpages/msp-ref/#1~.html}{#1}$\sim$~#2]
+[\href{http://cycling74.com/docs/max6/dynamic/c74_docs.html\##1~}{#1}$\sim$~#2]
+\else
+%[\href{http://www.cycling74.com/docs/max5/refpages/msp-ref/#1~.html}{#1}\HCode{&\#126;}~#2]
+[\href{http://cycling74.com/docs/max6/dynamic/c74_docs.html\##1~}{#1}\HCode{&\#126;}~#2]
+\fi
+}
+
+% message box
+\newcommand{\msg}[1]{
+\ifpdf
+$\ullcorner\textrm{#1}\ulrcorner$
+\else
+\ifnum\value{hcode-counter} > 0
+<table style="display:inline-table; vertical-align:-25\%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td style="font-size:75\%;">\&\#x2308;</td>
+<td rowspan="2">#1</td>
+<td style="font-size:75\%;">\&\#x2309;</td>
+</tr>
+<tr>
+<td style="font-size:75\%;">\&\#x230a;</td>
+<td style="font-size:75\%;">\&\#x230b;</td>
+</tr>
+</table>
+\else
+\stepcounter{hcode-counter}
+\HCode{
+<table style="display:inline-table; vertical-align:-25\%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td style="font-size:75\%;">&\#x2308;</td>
+<td rowspan="2">#1</td>
+<td style="font-size:75\%;">&\#x2309;</td>
+</tr>
+<tr>
+<td style="font-size:75\%;">&\#x230a;</td>
+<td style="font-size:75\%;">&\#x230b;</td>
+</tr>
+</table>
+}
+\setcounter{hcode-counter}{0}
+\fi
+\fi
+}
+
+% variable
+\newcommand{\var}[1]{
+\ifpdf
+$<$#1$>$
+\else
+\ifnum\value{hcode-counter} > 0
+&lt#1&gt
+\else
+\stepcounter{hcode-counter}
+\HCode{&lt#1&gt}
+\setcounter{hcode-counter}{0}
+\fi
+\fi
+}
+
+% insert a screen shot
+\newcommand{\sshot}[3]{
+\ifpdf
+\begin{center}\includegraphics[width=#1]{#3}\end{center}
+\else
+\HCode{<div style="text-align: center;"><img src="\imagedir#3.png" width=#2></div>}
+\fi
+}
+
+\newcommand{\gt}{Gametrak}

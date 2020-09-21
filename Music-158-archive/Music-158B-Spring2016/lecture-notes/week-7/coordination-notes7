@@ -1,0 +1,97 @@
+
+april 1: active dyanmic data
+	instrument design
+	OSC and odot expression language
+		** extendable
+			flexibility
+				composability
+					knowing the state of the system at all times
+						if you don't know the state it's difficult to compose with it
+				re-composability
+		huge interest for research at CNMAT
+		pedagogy + research, and it has large breadth
+		what is being enabled?
+			telematics
+			local live processing
+			interaction
+			dance, extended media
+	*** time critical ***
+	show esplora data and odot
+	coordination of data over network communication
+	state management
+		in order to know the state of the ouput, you need to keep track of everything
+
+	screenshot of cluster x
+	ed demo
+	scott and ursula start by talking about being in m158b
+	demo
+
+
+** ask richard about poster printing **
+** April 13 faire reception and poster session
+
+to get:
+- boxes, gray cargo containers with tops
+	- adrian dosn't like these
+
+- resonators, ask adrian
+- speakers
+	little self powered speakers?
+	meet with adrian
+
+
+- headphones?
+	low quality, just for testing signal flow
+		** high priority **
+		less than $100, functional and sturdy
+	x ordered
+
+more sensing types
+	- breath controller
+		- re-opening order issue on github
+	- kinect 1 or 2
+
+- joysticks
+	?
+
+- concert
+	at Morrison
+	schedule with 
+
+acoustic ecolology
+
+
+*** order drives for M158B ***
+	which drives to order?
+		with cases!
+		15 minimum
+
+documentation kit
+	tripod
+		plate for tripod
+	second tripod
+
+	portable lighting system 
+		~ $1500
+
+	cnmat logo?
+
+	screen capture and table capture
+		live switching between screen and table?
+			video switch box
+
+	mics?
+		how to record the instrument and voice?
+
+videos are going up on CNMAT channel
+text, score material, and patches, ready to be performed, projects
+
+
+MacPro with DeckLink, two streams of video,
+	either screen and camera or two cameras
+	blackmagic micro studio 4k
+
+questionaire for M158B
+	look at computational musical thinking book for an example
+
+

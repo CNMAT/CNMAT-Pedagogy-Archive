@@ -1,0 +1,75 @@
+**************************************************
+Patching session: Envelope maker
+**************************************************
+
+**************************************************
+This lesson aims at teaching you how to create a data storage and retrieval mechanism.  We'll use the function object as our model, so that we can build up envelopes.  These envelopes will eventually help us to make interesting sounds, but for now let's focus on building our envelope storage/recall tool.
+**************************************************
+
+Part 1: storage and recall
+
+open up a new patch window
+place a new function object into the patch (double-click in blank space > data > the thing with lines and dots)
+lock the patch, and try drawing some shapes by clicking in the box with your cursor
+you might want to make a different function from scratch, so create a clear message and patch it to the inlet of the function object
+place a new trigger object into the patch, like so: [t bang dump] or [t b dump]
+connect the rightmost outlet (dump) of the trigger object to the inlet of the function object
+place a new button object in your patch
+connect the rightmost outlet of the function object to the inlet of the button object
+connect the outlet of the button object to the inlet of the trigger object
+
+place a print object below the function object, and name it "dump_output"
+connect the 3rd outlet of the function object to the print object
+lock the patch and click on the function object again.  notice how the button illuminates when you click, and that you now see messages posting to the Max window.  look at the messages carefully.  what do they represent?  what data types are they?  how many messages are there, and how often do we see them?
+try hitting our clear message, then clicking again to make new points.  what is different about the data we see printed?  Notice that the dumped output is xy pairs.  For each point that exists in our function object currently (the number of which changes as we edit), we see a different xy pair, describing that point.
+
+create a [zl 1024 group] object
+connect the leftmost outlet (bang) of the trigger object to left inlet of the [zl group] object
+now, connect the 3rd outlet of the function object to the left inlet of the [zl group] object.  If you remember, [zl group] is going to collect an arbitrary amount of messages together into a single list (if that list is less than 1024 elements), and then bang them out when we issue a bang to it.
+look carefully at what is going on here:
+- we click the function object
+- a bang comes out of the [function] object from clicking
+- the bang is sent to trigger
+- trigger first tells the [function] object to dump its contents, then once ALL of the contents are dumped, it tells [zl group] to output its contents
+
+since our data is now bundled together via [zl group], we can easily send it to [coll] to store it as the values in an index
+but there's one issue:  how do we create indices for these data?  we could use prepend, but that would be a bit messy.  instead, let's use a handy mode of [zl] called "join", which joins two lists together.
+we'll join our data together with a one element list that describes the data. sort of like "mydata 0.1 0.3 44.41 33.1".  This functionality is very similar to that of [pack], [pak], and [prepend], so feel free to study the differences there.
+
+create a [zl join] object
+connect the lefmost outlet of [zl 1024 group] to the right inlet of [zl join]
+
+now we need a way to get the names of our indices (preset names) into the left inlet of [zl join].  for this task, we can use a [textedit] object.
+
+create a new [textedit] object
+create a new [route] object, with the argument "text", as in [route text]
+go into the [textedit] object's inspector, and check the attribute labeled "Return Enters Text" 
+connect the left outlet of the [textedit] object to the inlet of [route] 
+connect the left outlet of [route text] to the left inlet of [zl join]
+
+notice that now we have a queueing system.  as we edit our functions, we are building up lists to store into the right inlet of [zl join], and once we have finished editing, we can enter in a descriptor for that particular function.  once we enter in this text, it gets output together with the list.  now we just need to make sure that we give the correct storage message to coll.
+our current messages would read "myPresetName 0.1 0.3 44.41 33.1", but we really need "store myPresetName 0.1 0.3 44.41 33.1".  if you are confused by this, refer to the [coll] object's help file.
+
+create a new [prepend store] object, and a new [coll] object
+connect the outlet of [zl join] to the inlet of the [prepend] object
+connect the outlet of the [prepend] object to the inlet of the [coll] object
+createa a new [zl iter 2] object.  This is going to allow us to break our singular list back up into xy pairs, which can then be sent back to the function object to restore our saved preset.
+connect the left outlet of the [coll] object to the left inlet of the [zl iter 2]
+connect the left outlet of [zl iter 2] to the left inlet of the function object
+
+now we are ready to test our preset system.
+create a function, then store a name for it.  then repeat for another function with a different name.
+double-click on the [coll] object to see its contents.  do you see your two presets?  if not, go back to the previous steps to review.
+
+if so, let's move on to recalling our presets.
+create two new message boxes with two of the preset names as in [[mypreset1]] [[mypreset2]]
+create a new [trigger] object like so: [t s clear]
+connect the outlet of the "mypreset1" [message] to the inlet of [t s clear].  do the same for the other.
+connect the right outlet of [t s clear] (the clear message) to the left inlet of [function]
+connect the left outlet of [t s clear] (the preset name) to the inlet of [coll], which will call up the data for that particular preset name.
+lock the patch, and notice that when you click back and forth between presets that the function object clears properly before accepting new data, and that our presets are restored.
+
+Part 2: encapsulation
+
+Part 3: abstraction
+

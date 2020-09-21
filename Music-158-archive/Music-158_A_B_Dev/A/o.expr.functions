@@ -1,0 +1,3 @@
+o.expr.functions
+
+use modulo to wrap notes around the length of the scale scale. use division to see how many times the scale fits into the desired scale degree, use this number as the octave offset. multiply the division by 12 to get the octave in midi, truncate the division, since the modulo is the remainder  part of the division (used for the steps in the scale) 
